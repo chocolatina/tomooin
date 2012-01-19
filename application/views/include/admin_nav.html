@@ -1,0 +1,12 @@
+		<nav class="side">
+			<p class="cm_txt_125 cm_mg_b_10"><img src="http://a3.twimg.com/profile_images/1678110640/IMG_1784_normal.jpg" alt="" class="img_border cm_w_20px cm_mg_r_5" />&nbsp;<strong>123456789012345</strong></p>
+			<ul class="cm_mg_b_10">
+				<li<% if $body_id == "admin_index" %> class="current"<% /if %>><a href="/admin">マイページトップ</a></li>
+				<li><a href="/user/chocolatina" target="_blank">あなたの紹介ページ</a></li>
+				<li<% if $body_id == "admin_received" %> class="current"<% /if %>><a href="/admin/received">届いた紹介文<span>100</span></a></li>
+				<li<% if ($body_id == "admin_write")||($body_id == "admin_write_form") %> class="current"<% /if %>><a href="/admin/write">紹介文を書く</a></li>
+				<li<% if $body_id == "admin_wrote" %> class="current"<% /if %>><a href="/admin/wrote">書いた紹介文</a></li>
+				<li<% if $body_id == "admin_setting" %> class="current"<% /if %>><a href="/admin/setting">個人設定</a></li>
+			</ul>
+			<!--<p class="area_border cm_txt_c"><a href="" class="button1">紹介文を書く</a></p>-->
+		</nav>
