@@ -2,8 +2,7 @@
 
 class Admin extends CI_Controller {
 	public function index()
-	{
-		
+	{		
 		$body_id="admin_index";
 		$body_class="admin";
 		$content_tpl="admin/index.html";

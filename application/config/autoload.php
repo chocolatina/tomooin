@@ -53,7 +53,7 @@ $autoload['packages'] = array();
 */
 
 //$autoload['libraries'] = array('database','smarty','url');
-$autoload['libraries'] = array('database','smarty');
+$autoload['libraries'] = array('database','session','smarty');
 
 
 /*
