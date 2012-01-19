@@ -1,5 +1,6 @@
 /application/config/database.php
 /application/config/config.php
+/application/controllers/tweet.php
 /.htpasswd
 /application/libraries/loginwithtwitter/*
 /templates_c/*
