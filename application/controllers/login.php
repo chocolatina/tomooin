@@ -1,44 +1,25 @@
 <?php
-
 class Login extends CI_Controller {
-	/*function __construct()
-	{
-		parent::__construct();
-		header('Content-Type: text-html; charset=UTF-8');
-		//¥»¥Ã¥·¥ç¥ó¥¯¥é¥¹¤Î¥í¡¼¥É
-		$this->load->library('session');
-	}*/
-	
-	public function index()
-	{
-		//¥»¥Ã¥·¥ç¥ó¥Ç¡¼¥¿¤ÎÆÉ¤ß¼è¤ê
-		if(!$this->session->userdata('count'))
-		{
-			//¥»¥Ã¥·¥ç¥ó¥Ç¡¼¥¿¤ÎÊİÂ¸
-			$this->session->set_userdata('count',1);
-		}
-		else
-		{
-			$count = $this->session->userdata('count');
-			$count ++;
-			$this->session->set_userdata('count',$count);
-		}
-		echo 'visit:'.$this->session->userdata('count')."<br />";
-		
-		echo "<a href='/login'>reload</a><br />";
-		echo "<a href='/login/destroy'>clear</a>";
-	}
-	
-	public function destroy()
-	{
-		$this->session->sess_destroy();
-		echo "session cleared!!<br />";
-		echo "<a href='/login'>back</a>";
-	}
-	
-	
-	
+    public function twitter() {
+        $params = array('key'=>'5EgWHBYmShjw6MbkwwgRvg', 'secret'=>'XV32VsHrSa3BKbdmOPTwyu18IbqAunQruBTCTmnW9xI');
+        $this->load->library('twitter_oauth', $params);
+        //$this->load->helper('url');autoload‚µ‚Ä‚é‚Ì‚Å‘‚©‚È‚­‚Ä‚¢‚¢
+        //$this->load->library('session');autoload‚µ‚Ä‚é‚Ì‚Å‘‚©‚È‚­‚Ä‚¢‚¢
+ 
+        $response = $this->twitter_oauth->get_request_token(site_url("tweet/callback"));
+	//$response = $this->twitter_oauth->get_request_token(site_url("/admin"));‚í‚©‚ç‚È‚¢
+        $_SESSION['token_secret'] = $response['token_secret'];
+        $this->session->set_userdata('token_secret', $response['token_secret']);
+        redirect($response['redirect']);
+    }
+ 
+    public function callback() {
+        $params = array('key'=>'5EgWHBYmShjw6MbkwwgRvg', 'secret'=>'XV32VsHrSa3BKbdmOPTwyu18IbqAunQruBTCTmnW9xI');
+        $this->load->library('twitter_oauth', $params);
+        //$this->load->library('session');
+ 
+        $response = $this->twitter_oauth->get_access_token(false, $this->session->userdata('token_secret'));
+        //$this->_store_in_db($response);uoauth_tokenv‚È‚Ç‚ğDB‚É“o˜^‚µ‚Ä‚¨‚¯‚ÎAŸ‰ñ‚©‚ç‚Í©“®“I‚ÉƒƒOƒCƒ“‚ğ‚µ‚Ä–á‚¤‚±‚Æ‚à‚Å‚«‚Ü‚·B
+        var_dump($response);
+    }
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
