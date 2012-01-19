@@ -1,0 +1,14 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|img|css|js|robots\.txt)
+RewriteRule ^(.*)$ /index.php/$1 [L]
+# BEGIN heteml
+# 注意:
+# このブロックはヘテムルのコントロールパネルによって作成されました。
+# # BEGIN heteml 〜 # END heteml は編集を行わないようにご注意ください。
+
+AuthUserFile /home/sites/heteml/users/c/h/o/chocolatina/web/tomoo.in/.htpasswd
+AuthGroupFile /dev/null
+AuthName "question"
+AuthType Basic
+require valid-user
+# END heteml
