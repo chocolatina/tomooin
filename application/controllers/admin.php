@@ -1,20 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
+	
+	public $body_class = "admin";
+	
 	public function index()
 	{
 		session_start();
-		echo ($_SESSION['id']."←セッションで渡ってきたid。これでログインしてるかどうか判別する。ログインしてなかったらトップにリダイレクトする処理をする（未作成）");
+		echo ($_SESSION['current_user']['id'].$_SESSION['current_user']['screen_name']."←セッションで渡ってきたid。これでログインしてるかどうか判別する。ログインしてなかったらトップにリダイレクトする処理をする（未作成）");
 		echo ("<a href='/logout'>ログアウト</a>");
 		
-		$body_id="admin_index";
-		$body_class="admin";
-		$content_tpl="admin/index.html";
+		$this->body_id="admin_index";
+		$this->content_tpl="admin/index.html";
 		
-		$this->smarty->assign("body_id",$body_id);
-		$this->smarty->assign("body_class",$body_class);
-		$this->smarty->assign( 'content_tpl', $content_tpl );
-		$this->smarty->view("include/base.html");
+		//上書き
+		$this->body_class = "admin2";
+		
+	    $this->_render();
+	
+		
 	}
 	public function received()
 	{
@@ -95,6 +99,15 @@ class Admin extends CI_Controller {
 		$this->smarty->assign("body_class",$body_class);
 		$this->smarty->assign( 'content_tpl', $content_tpl );
 		$this->smarty->view("include/base.html");
+	}
+	
+	private function _render()
+	{
+		$this->smarty->assign("body_id",$this->body_id);
+		$this->smarty->assign("body_class",$this->body_class);
+		$this->smarty->assign( 'content_tpl', $this->content_tpl );
+		$this->smarty->view("include/base.html");
+	
 	}
 }
 
