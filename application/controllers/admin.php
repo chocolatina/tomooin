@@ -3,6 +3,10 @@
 class Admin extends CI_Controller {
 	public function index()
 	{
+		session_start();
+		echo ($_SESSION['id']."←セッションで渡ってきたid。これでログインしてるかどうか判別する。ログインしてなかったらトップにリダイレクトする処理をする（未作成）");
+		echo ("<a href='/logout'>ログアウト</a>");
+		
 		$body_id="admin_index";
 		$body_class="admin";
 		$content_tpl="admin/index.html";
@@ -94,7 +98,7 @@ class Admin extends CI_Controller {
 	}
 }
 
-/*Ʊ�����Ȳ�����äƤƥХ��ʤΤǤ��Ȥ�@banyan��ʹ��*/
+/*同じこと何回もやっててバカなのであとで@banyanに聞く*/
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
