@@ -7,16 +7,21 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		session_start();
-		echo ($_SESSION['current_user']['id'].$_SESSION['current_user']['screen_name']."←セッションで渡ってきたid。これでログインしてるかどうか判別する。ログインしてなかったらトップにリダイレクトする処理をする（未作成）");
-		echo ("<a href='/logout'>ログアウト</a>");
-		
-		$this->body_id="admin_index";
-		$this->content_tpl="admin/index.html";
-		
-		//上書き
-		$this->body_class = "admin2";
-		
-	    $this->_render();
+		if(empty($_SESSION['current_user']['id'])){
+			header("Location: /login/twitter");
+		}
+		else{
+			echo ($_SESSION['current_user']['id'].$_SESSION['current_user']['screen_name']."←セッションで渡ってきたid。これでログインしてるかどうか判別する。ログインしてなかったらトップにリダイレクトする処理をする（未作成）");
+			echo ("<a href='/logout'>ログアウト</a>");
+			
+			$this->body_id="admin_index";
+			$this->content_tpl="admin/index.html";
+			
+			//上書きしたいとき
+			//$this->body_class = "admin2";
+			
+			$this->_render();
+		}
 	
 		
 	}
@@ -110,8 +115,3 @@ class Admin extends CI_Controller {
 	
 	}
 }
-
-/*同じこと何回もやっててバカなのであとで@banyanに聞く*/
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
