@@ -3,5 +3,5 @@
 /application/config/oauth.php
 /application/controllers/login.php
 /.htpasswd
-/application/libraries/loginwithtwitter/*
+/application/libraries/test_loginwithtwitter/*
 /templates_c/*
