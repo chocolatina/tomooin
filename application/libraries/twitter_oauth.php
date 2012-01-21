@@ -1,5 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
- 
+//ã¦ã™ã¨
 class twitter_oauth
 {
     const SCHEME = 'https';
@@ -23,7 +23,7 @@ class twitter_oauth
     public function twitter_oauth($params)
     {
         $this->CI = get_instance();
-        //$this->CI->load->helper('oauth');autoload‚µ‚Ä‚é‚Ì‚Å‘‚©‚È‚­‚Ä‚¢‚¢
+        //$this->CI->load->helper('oauth');autoloadã—ã¦ã‚‹ã®ã§æ›¸ã‹ãªãã¦ã„ã„
  
         if(!array_key_exists('method', $params))$params['method'] = 'GET';
         if(!array_key_exists('algorithm', $params))$params['algorithm'] = OAUTH_ALGORITHMS::HMAC_SHA1;

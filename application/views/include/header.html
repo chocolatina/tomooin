@@ -1,11 +1,11 @@
 	<header id="top">
 		<div class="box clearfix">
-			<h1>tomoo</h1>
+			<h1><a href="/">tomoo</a></h1>
 			<nav>
 				<ul>
-					<li>ようこそ <strong>123456789012345</strong> さん</li>
-					<li><a href="" class="button1s">twitterID で ログイン</a></li>
-					<li><a href="" class="button1s">ログアウト</a></li>
+					<% if $body_class == "admin" %><li>ようこそ <strong><% $screen_name %></strong> さん</li><% /if %>
+					<% if $body_class != "admin" %><li><a href="/login/twitter" class="button1s">twitterID で ログイン</a></li><% /if %>
+					<% if $body_class == "admin" %><li><a href="/logout" class="button1s">ログアウト</a></li><% /if %>
 				</ul>
 			</nav>
 		</div>
