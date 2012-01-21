@@ -32,19 +32,45 @@ class Admin extends CI_Controller {
 			$connect->format = "xml";
 			 
 			// フォローしてるユーザーのID一覧を取得
+
+			/*$api_url = "https://api.twitter.com/1/users/show.xml";
+			$method = "GET";
+			$option = array("user_id" => "440891995");
+			$req = $connect->OAuthRequest($api_url,$method,$option);
+
+			$xml_friends_id = simplexml_load_string($req);
+			echo $req;
+
+			exit;*/
+
 			$api_url = "http://api.twitter.com/1/friends/ids.xml";
 			$method = "GET";
 			$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
 			$req = $connect->OAuthRequest($api_url,$method,$option);
 
-			$xml = simplexml_load_string($req);
+			$xml_friends_ids = simplexml_load_string($req);
 
-			/*foreach ($xml->ids->id as $id){
-				echo $id."<br />\n";
+			$i=0;
+			foreach ($xml_friends_ids->ids->id as $xml_friends_id){
+				//echo $xml_friends_id."<br />\n";
+				$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+				$connect->format = "xml";
+				$api_url = "https://api.twitter.com/1/users/show.xml";
+				$method = "GET";
+				$option = array("user_id" => "$xml_friends_id");
+				$req = $connect->OAuthRequest($api_url,$method,$option);
+
+				$xml_friends_names = simplexml_load_string($req);
+				 
+				echo $xml_friends_names->screen_name."<br />\n";
+				$this->smarty->assign("friends_screen_name",$xml_friends_names->screen_name);
+
+				$i++;
+				if($i>4){break;}
 				
-			};*/
-			
-			$this->smarty->assign("friends_list",$xml->ids->id);
+			};
+
+			$this->smarty->assign("friends_id",$xml_friends_ids->ids->id);
 			//friends一覧取得ここまで
 
 			$this->_render();

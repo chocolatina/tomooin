@@ -13,7 +13,10 @@
 						<a href="■" class="button1s" />検索</a>
 					</form>
 				</div>
-				<% foreach from=$friends_list item=foo %>
+				<% foreach from=$friends_id item=foo %>
+					<% $foo %>
+				<% /foreach %>
+				<% foreach from=$friends_screen_name item=foo %>
 					<% $foo %>
 				<% /foreach %>
 				<!--ここから-->
