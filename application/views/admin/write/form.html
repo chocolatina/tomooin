@@ -7,35 +7,47 @@
 				
 				<form action="/admin/write/create" method="post">
 					<input type="hidden" value="<% $user_id %>" name="params[user_id]" />
-					<table class="table_01 cm_w_100">
-						<tr class="odd">
-							<th>紹介する友達</th>
-							<td>
+					
+					
+					
+					
+					
+					<div class="clearfix area_border_bottom area_border_top">
+						<div class="cm_float_l cm_w_20">
+							<h1>紹介する友達</h1>
+						</div>
+						<div class="cm_float_r cm_w_78">
+							
 								<section class="clearfix cm_mg_b_10">
-									<h1 class="cm_float_l cm_mg_r_10"><img src="<% $friend_profile_image_url_https %>" alt="" class="cm_w_60px cm_mg_r_5 img_border" /></h1>
-									<section class="cm_float_l">
+									<h1 class="cm_float_l cm_mg_r_10 cm_w_16"><img src="<% $friend_profile_image_url_https %>" alt="" class="cm_w_60px cm_mg_r_5 img_border" /></h1>
+									<section class="cm_float_l cm_w_80">
 										<h1><% $friend_screen_name %> さん</h1>
 										<p><% $friend_name %></p>
 										<p><% $friend_description %></p>
 									</section>
 								</section>
 								<input type="hidden" value="<% $friend_id %>" name="params[friend_id]">
-							</td>
-						</tr>
-						<tr class="even">
-							<th>関係</th>
-							<td><input type="text" class="form_string" name="params[relation]"></td>
-						</tr>
-						<tr class="odd">
-							<th>紹介文</th>
-							<td><textarea name="params[text]"></textarea></td>
-						</tr>
-					</table>
+						</div>
+					</div>
+					<div class="clearfix area_border_bottom">
+						<div class="cm_float_l cm_w_20">
+							<h1>関係</h1>
+						</div>
+						<div class="cm_float_r cm_w_78">
+							<p><input type="text" class="frm_text" name="params[relation]"></p>
+						</div>
+					</div>
+					<div class="clearfix area_border_bottom">
+						<div class="cm_float_l cm_w_20">
+							<h1>紹介文</h1>
+						</div>
+						<div class="cm_float_r cm_w_78">
+							<p><textarea class="cm_w_95 cm_h_100px frm_text" name="params[text]"></textarea></p>
+						</div>
+					</div>
 					<input type="hidden" value="<% $smarty.now|date_format:"%Y-%m-%d %H:%M:%S" %>" name="params[date]" />
 					<input type="hidden" value="<% $smarty.server.REMOTE_ADDR %>" name="params[ip]" />
-					<div class="cm_mg_b_20">
-					<input type="submit" value="送信" />
-					</div>
+					<p><input type="submit" value="送信" /></p>
 				</form>
 			</section>
 		</div>

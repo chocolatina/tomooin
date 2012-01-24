@@ -73,6 +73,11 @@ tomooピンク
     li{
         margin: 0;
     }
+	
+	textarea{
+  		overflow-x:auto;
+  		overflow-y:auto;
+	}
 
 	.clearfix { zoom: 1;}
 	
@@ -131,23 +136,14 @@ footer,header,hgroup,menu,nav,section,summary
 
 /* フォーム--------------------------------------------------------------------- */
 
-    .frm_number{
-        border-color: #d8d3cf;
-        border-style: solid;
-        border-width: 1px;
-        font-size: 12px;
-        background-color: #ffffff;
-        padding: 2px;
-        ime-mode: disabled;
-    }
 
-    .frm_string{
-        border-color: #d8d3cf;
-        border-style: solid;
-        border-width: 1px;
-        font-size: 12px;
+    .frm_text{
+		border:1px solid #d8d3cf;
+		border-color:#aca8a5 #d3ceca #eceae8;
+        font-size: 14px;
         background-color: #ffffff;
-        padding: 2px;
+        padding: 4px 3px;
+		font-family: 'Open Sans','ヒラギノ丸ゴ Pro W4', メイリオ, 'Hiragino Maru Gothic Pro', sans-serif;
     }
 
     input[type="password"]{
@@ -510,8 +506,13 @@ a.button2s:hover{
 
 	.area_border_bottom{
 		border-bottom:1px dotted #ccc;
-		padding-bottom:20px;
-		margin-bottom:20px;
+		padding-bottom:15px;
+		margin-bottom:15px;
+	}
+
+	.area_border_top{
+		border-top:1px dotted #ccc;
+		padding-top:15px;
 	}
 	/*.area_red{
         border: 2px solid #fd9ead;
@@ -688,6 +689,7 @@ a.button2s:hover{
     .cm_w_10 {width: 10% !important;}
     .cm_w_13 {width: 13% !important;}
     .cm_w_16 {width: 16% !important;}
+    .cm_w_18 {width: 18% !important;}
     .cm_w_20 {width: 20% !important;}
     .cm_w_25 {width: 25% !important;}
     .cm_w_30 {width: 30% !important;}
@@ -699,6 +701,7 @@ a.button2s:hover{
     .cm_w_60 {width: 60% !important;}
     .cm_w_70 {width: 70% !important;}
     .cm_w_75 {width: 75% !important;}
+    .cm_w_78 {width: 78% !important;}
     .cm_w_80 {width: 80% !important;}
     .cm_w_85 {width: 85% !important;}
     .cm_w_90 {width: 90% !important;}

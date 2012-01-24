@@ -15,12 +15,12 @@
 				</div>
 				<div class="clearfix area_border_bottom">
 					<% foreach from=$friends_list item=content key=key %>
-					<% * $content.friend_id * %>
+					<% * $content.friend_user_id * %>
 					<div class="cm_float_l cm_w_30 cm_mg_b_30 <% if $key%3==0 %>cm_mg_r_27<% /if %> clearfix">
-						<p class="cm_float_l cm_w_25"><img src="<% $content.profile_image_url %>" alt="" class="img_border cm_w_30px" /></p>
+						<p class="cm_float_l cm_w_25"><img src="<% $content.friend_profile_image_url %>" alt="" class="img_border cm_w_30px" /></p>
 						<section>
-							<h1 class="cm_lh_12"><% $content.screen_name %></h1>
-							<p class="cm_txt_85"><a href="/admin/write_form/?screen_name=<% $content.screen_name %>">この人の紹介文を書く</a><% * $content.friend_id * %></p>
+							<h1 class="cm_lh_12"><% $content.friend_screen_name %></h1>
+							<p class="cm_txt_85"><a href="/admin/write/form/?screen_name=<% $content.friend_screen_name %>">この人の紹介文を書く</a><% * $content.friend_user_id * %></p>
 						</section>
 					</div>
 					<% /foreach %>

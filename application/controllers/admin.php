@@ -29,47 +29,78 @@ class Admin extends CI_Controller {
 			$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
 			$connect->format = "xml";
 			 
-			// フォローしてるユーザーのID一覧を取得
-
-			/*$api_url = "https://api.twitter.com/1/users/show.xml";
-			$method = "GET";
-			$option = array("user_id" => "440891995");
-			$req = $connect->OAuthRequest($api_url,$method,$option);
-
-			$xml_friends_id = simplexml_load_string($req);
-			echo $req;
-
-			exit;*/
-
-			$api_url = "http://api.twitter.com/1/friends/ids.xml";
+			// 現在ログイン中のユーザーのタイムラインを取得
+			
+			$api_url = "http://api.twitter.com/1/statuses/user_timeline.xml";
 			$method = "GET";
 			$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
 			$req = $connect->OAuthRequest($api_url,$method,$option);
-
-			$xml_friends_ids = simplexml_load_string($req);
+			
+			$xml_statuses_user_timeline = simplexml_load_string($req);//この配列にはタイムライン20件が収納されている
+			
+			// 最近リプライを飛ばしたユーザーを探す
+			$friends_list = array();
 			$i=0;
-			$xml_friends_shows_arrays = array();
-			foreach ($xml_friends_ids->ids->id as $xml_friends_id){
-				//echo $xml_friends_id."<br />\n";
+			$n=0;
+			while ($i <= 20) {
+				//echo $xml_statuses_user_timeline->status[$i]->in_reply_to_user_id;
+				//配列内でリプライidが存在するときだけ
+				if(!empty($xml_statuses_user_timeline->status[$i]->in_reply_to_user_id)){
+					//なおかつ自分じゃない時だけ配列に入れる
+					//var_dump($xml_statuses_user_timeline->status[$i]->in_reply_to_user_screen_name);
+					if($xml_statuses_user_timeline->status[$i]->in_reply_to_screen_name!=$_SESSION['current_user']['screen_name']){
+						$friends_list[$n]["friend_user_id"]=$xml_statuses_user_timeline->status[$i]->in_reply_to_user_id;
+						$friends_list[$n]["friend_screen_name"]=$xml_statuses_user_timeline->status[$i]->in_reply_to_screen_name;
+						$n++;
+					}
+				}
+				else{
+					//echo "empty";
+				}
+				$i++;
+			}
+			//var_dump($friends_list);
+			//exit;
+			
+			//重複を削除したいのに
+			
+			//$friends_list = array_unique($friends_list,SORT_REGULAR);これうまくいかない
+			
+			//これもうまくいかない
+			/*$tmp = array();//検証用配列
+			foreach($friends_list as $key => $val){
+				if(!in_array($val,$tmp)){
+					$tmp[]=$val;
+				}
+			}
+			$friends_list = $tmp;*/
+			//var_dump($friends_list);
+			//exit;
+			
+			
+			//$friends_list = array();
+			
+			//プロフィール画像を取得
+			//$i=0;
+			foreach ($friends_list as $key => $value){
+				
+				//echo $friends_list["friend_user_id"];
+				$friend_user_id = $value["friend_user_id"];
+				
+				//echo "<br><br><br>".$i."<br><br><br>friend_user_id is".$friend_user_id."<br><br><br>\n";
+				
 				$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
 				$connect->format = "xml";
 				$api_url = "https://api.twitter.com/1/users/show.xml";
 				$method = "GET";
-				$option = array("user_id" => "$xml_friends_id");
+				$option = array("user_id" => "$friend_user_id");
 				$req = $connect->OAuthRequest($api_url,$method,$option);
-				$xml_friends_shows = simplexml_load_string($req);
-				//var_dump($xml_friends_shows);
-				//$xml_friends_names["$xml_friends_id"]="$xml_friends_shows->screen_name";
-				$xml_friends_shows_arrays["$i"]["friend_id"]="$xml_friends_id";
-				$xml_friends_shows_arrays["$i"]["screen_name"]="$xml_friends_shows->screen_name";
-				$xml_friends_shows_arrays["$i"]["profile_image_url"]="$xml_friends_shows->profile_image_url";
-				//var_dump($xml_friends_shows_arrays);
-				$i++;
-				if($i>5){break;}
-				
+				$friend_list_req = simplexml_load_string($req);
+				$friends_list[$key]["friend_profile_image_url"]="$friend_list_req->profile_image_url";
 			};
-			$this->smarty->assign("friends_list",$xml_friends_shows_arrays);
-			//$this->smarty->assign("friends_id",$xml_friends_ids->ids->id);
+			
+			$this->smarty->assign("friends_list",$friends_list);
+			//$this->smarty->assign("friends_id",$xml_statuses_user_timeline->ids->id);
 			//$this->smarty->assign("friends_name",$xml_friends_names);
 			//friends一覧取得ここまで
 
@@ -127,7 +158,7 @@ class Admin extends CI_Controller {
 				$connect->format = "xml";
 				$api_url = "https://api.twitter.com/1/users/lookup.xml";
 				$method = "GET";
-				$option = array("screen_name" => "paperbooya");
+				$option = array("screen_name" => $_GET['screen_name']);
 				$req = $connect->OAuthRequest($api_url,$method,$option);
 
 				$xml_users_lookups = simplexml_load_string($req);

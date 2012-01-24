@@ -43,6 +43,8 @@ $route['404_override'] = '';
 
 $route['admin/write/form'] = "admin/write_form";
 $route['admin/write/create'] = "admin/write_create";
+$route['user/:any'] = "user/index";
+
 
 
 /* End of file routes.php */
