@@ -33,24 +33,21 @@ class Admin extends CI_Controller {
 			
 			$api_url = "http://api.twitter.com/1/statuses/user_timeline.xml";
 			$method = "GET";
-			$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
+			$option = array("screen_name" => $_SESSION['current_user']['screen_name'],"count" => "20");
 			$req = $connect->OAuthRequest($api_url,$method,$option);
-			
+			//echo $req;
 			$xml_statuses_user_timeline = simplexml_load_string($req);//この配列にはタイムライン20件が収納されている
 			
-			// 最近リプライを飛ばしたユーザーを探す
+			// 最近リプライを飛ばしたユーザーを探してidを取得
 			$friends_list = array();
 			$i=0;
 			$n=0;
 			while ($i <= 20) {
-				//echo $xml_statuses_user_timeline->status[$i]->in_reply_to_user_id;
 				//配列内でリプライidが存在するときだけ
 				if(!empty($xml_statuses_user_timeline->status[$i]->in_reply_to_user_id)){
 					//なおかつ自分じゃない時だけ配列に入れる
-					//var_dump($xml_statuses_user_timeline->status[$i]->in_reply_to_user_screen_name);
 					if($xml_statuses_user_timeline->status[$i]->in_reply_to_screen_name!=$_SESSION['current_user']['screen_name']){
 						$friends_list[$n]["friend_user_id"]=$xml_statuses_user_timeline->status[$i]->in_reply_to_user_id;
-						$friends_list[$n]["friend_screen_name"]=$xml_statuses_user_timeline->status[$i]->in_reply_to_screen_name;
 						$n++;
 					}
 				}
@@ -59,35 +56,25 @@ class Admin extends CI_Controller {
 				}
 				$i++;
 			}
-			//var_dump($friends_list);
-			//exit;
 			
-			//重複を削除したいのに
-			
-			//$friends_list = array_unique($friends_list,SORT_REGULAR);これうまくいかない
-			
-			//これもうまくいかない
-			/*$tmp = array();//検証用配列
+			//重複を削除
+			$tmp1 = array();//検証用配列
+			$tmp2 = array();//検証用配列
 			foreach($friends_list as $key => $val){
-				if(!in_array($val,$tmp)){
-					$tmp[]=$val;
-				}
+				$tmp1[$key]=$val["friend_user_id"];
+				$tmp1=array_unique($tmp1);
 			}
-			$friends_list = $tmp;*/
-			//var_dump($friends_list);
-			//exit;
+			foreach($tmp1 as $key => $val){
+				$tmp2[$key]["friend_user_id"]=$val;
+			}
+			$friends_list = $tmp2;
 			
 			
-			//$friends_list = array();
-			
-			//プロフィール画像を取得
+			//最近リプライを飛ばした友人のスクリーンネームとプロフィール画像を取得
 			//$i=0;
 			foreach ($friends_list as $key => $value){
 				
-				//echo $friends_list["friend_user_id"];
 				$friend_user_id = $value["friend_user_id"];
-				
-				//echo "<br><br><br>".$i."<br><br><br>friend_user_id is".$friend_user_id."<br><br><br>\n";
 				
 				$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
 				$connect->format = "xml";
@@ -96,14 +83,24 @@ class Admin extends CI_Controller {
 				$option = array("user_id" => "$friend_user_id");
 				$req = $connect->OAuthRequest($api_url,$method,$option);
 				$friend_list_req = simplexml_load_string($req);
+				$friends_list[$key]["friend_screen_name"]="$friend_list_req->screen_name";
 				$friends_list[$key]["friend_profile_image_url"]="$friend_list_req->profile_image_url";
 			};
 			
 			$this->smarty->assign("friends_list",$friends_list);
-			//$this->smarty->assign("friends_id",$xml_statuses_user_timeline->ids->id);
-			//$this->smarty->assign("friends_name",$xml_friends_names);
-			//friends一覧取得ここまで
-
+			//最近リプライを飛ばした友人の情報取得ここまで
+			
+			//これは使えないにゃー
+			//$this->output->cache(10);
+			
+			//DBにキャッシュ用にテーブルをひとつ作って、友達の情報を入れて、もし情報が存在したら、次からはそれをとってくるにゃー
+			//user_id    | friend_id      | friend_screen_name   | friend_profile_image_url | date
+			//------------------------------------------------------------------------------------------
+			//chocolatina | 123456        |murasakipinko         | https.....               | 20111111
+			//------------------------------------------------------------------------------------------
+			//chocolatina | 789012        |banyan                | https.....               | 20111112
+			//------------------------------------------------------------------------------------------
+			
 			$this->_render();
 		}
 	}
@@ -208,7 +205,56 @@ class Admin extends CI_Controller {
 			$sql = "SELECT * from table1 WHERE user_id = ? ORDER BY date DESC";
 			$query = $this->db->query($sql, array(14212710));
 			$rows = $query->result();
+			//$this->smarty->assign("rows",$rows);
+			//var_dump($rows);
+
+
+
+
+			//$rowsにscreen_nameを足してあげる
+
+
+
+			$i=0;
+			foreach ($rows as $key => $value){
+				
+				//var_dump($value->friend_id);
+				//exit;
+				//echo $friends_list["friend_user_id"];
+				//$friend_id = $value->friend_id;
+				//echo $value->friend_id;
+				//exit;
+				//echo "<br><br><br>".$i."<br><br><br>friend_user_id is".$friend_user_id."<br><br><br>\n";
+				
+				$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+				$connect->format = "xml";
+				$api_url = "https://api.twitter.com/1/users/show.xml";
+				$method = "GET";
+				$option = array("user_id" => $value->friend_id);
+				$req = $connect->OAuthRequest($api_url,$method,$option);
+				$friend_list_req = simplexml_load_string($req);
+				//echo $i;
+				$rows[$i]->friend_screen_name=(string)$friend_list_req->screen_name;
+				//echo (string)$friend_list_req->profile_image_url_https;
+				$rows[$i]->friend_profile_image_url_https=(string)$friend_list_req->profile_image_url_https;
+				//$rows[$i]["friend_screen_name"]=(string)$friend_list_req->screen_name;
+				//echo $friend_list_req->screen_name;
+				//exit;
+				//$rows[$key]["friend_screen_name"]="$friend_list_req->screen_name";
+				//$rows["friend_screen_name"]="hogehoge";
+				$i++;
+			};
+			//var_dump($rows);
+			//exit;
 			$this->smarty->assign("rows",$rows);
+
+
+
+
+
+
+
+
 			
 			$this->_render();
 		}

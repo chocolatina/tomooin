@@ -67,6 +67,8 @@ class Login extends CI_Controller {
 			//$res=$rows[0];
 			$_SESSION['current_user']['id'] = $row->id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
+			//$_SESSION['current_user']['profile_image_url'] = $row->profile_image_url;
+			//$_SESSION['current_user']['profile_image_url_https'] = $row->profile_image_url_https;
 			header("Location: /admin");
 		}
     }

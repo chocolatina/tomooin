@@ -6,7 +6,15 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		
+		//ログイン中かどうか判定
+		session_start();
+		if(isset($_SESSION['current_user']['id'])){
+			$this->smarty->assign("is_loggedin",1);
+			$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
+		}
+		else{
+			$this->smarty->assign("is_loggedin",0);
+		}
 		$this->body_id="index";
 		$this->content_tpl="index.html";
 		$this->_render();

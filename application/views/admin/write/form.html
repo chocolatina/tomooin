@@ -5,7 +5,7 @@
 				<h1 class="icon_pic_02">紹介文を書く</h1>
 				<p class="cm_mg_b_20">ああああ紹介文を書くよ</p>
 				
-				<form action="/admin/write/create" method="post">
+				<form action="/admin/write/create" method="post" name="frm">
 					<input type="hidden" value="<% $user_id %>" name="params[user_id]" />
 					
 					
@@ -47,7 +47,8 @@
 					</div>
 					<input type="hidden" value="<% $smarty.now|date_format:"%Y-%m-%d %H:%M:%S" %>" name="params[date]" />
 					<input type="hidden" value="<% $smarty.server.REMOTE_ADDR %>" name="params[ip]" />
-					<p><input type="submit" value="送信" /></p>
+					
+					<p class="cm_txt_c cm_mg_b_10"><a class="button2" href="#" onclick="document.frm.submit()">送信</a></p>
 				</form>
 			</section>
 		</div>

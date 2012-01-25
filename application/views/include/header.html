@@ -3,9 +3,17 @@
 			<h1><a href="/">tomoo</a></h1>
 			<nav>
 				<ul>
-					<% if $body_class == "admin" %><li>ようこそ <strong><% $screen_name %></strong> さん</li><% /if %>
-					<% if $body_class != "admin" %><li><a href="/login/twitter" class="button1s">twitterID で ログイン</a></li><% /if %>
-					<% if $body_class == "admin" %><li><a href="/logout" class="button1s">ログアウト</a></li><% /if %>
+					<% if $body_class == "admin" %>
+						<li>ようこそ <strong><% $screen_name %></strong> さん</li>
+						<li><a href="/logout" class="button1s">ログアウト</a></li>
+					<% else %>
+						<% if $is_loggedin %>
+							<li>ようこそ <strong><% $screen_name %></strong> さん</li>
+							<li><a href="/logout" class="button1s">ログアウト</a></li>
+						<% else %>
+							<li><a href="/login/twitter" class="button1s">twitterID で ログイン</a></li>
+						<% /if %>
+					<% /if %>
 				</ul>
 			</nav>
 		</div>
