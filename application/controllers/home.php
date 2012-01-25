@@ -6,7 +6,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		//¥í¥°¥¤¥óÃæ¤«¤É¤¦¤«È½Äê
+		//ãƒ­ã‚°ã‚¤ãƒ³ä¸­ã‹ã©ã†ã‹åˆ¤å®š
 		session_start();
 		if(isset($_SESSION['current_user']['id'])){
 			$this->smarty->assign("is_loggedin",1);

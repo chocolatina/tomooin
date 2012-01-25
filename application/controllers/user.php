@@ -8,8 +8,18 @@ class User extends CI_Controller {
 	{
 		//echo $this->uri->segments[2];
 		//exit;
+
+		//ãƒ­ã‚°ã‚¤ãƒ³ä¸­ã‹ã©ã†ã‹åˆ¤å®š
+		session_start();
+		if(isset($_SESSION['current_user']['id'])){
+			$this->smarty->assign("is_loggedin",1);
+			$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
+		}
+		else{
+			$this->smarty->assign("is_loggedin",0);
+		}
 		
-		//URI¤Î/user/°Ê²¼¤òuser_idÊÑ¿ô¤ËÆþ¤ì¤ë
+		//URIã®/user/ä»¥ä¸‹ã‚’user_idå¤‰æ•°ã«å…¥ã‚Œã‚‹
 		$this->smarty->assign("user_id",$this->uri->segments[2]);
 		
 		//$sql = "SELECT * from table1 WHERE user_screen_name = ? ORDER BY date DESC";

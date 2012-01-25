@@ -1,5 +1,9 @@
 		<nav class="side">
-			<p class="cm_txt_125 cm_mg_b_10"><img src="<% $current_user_profile_image_url_https %>" alt="" class="img_border cm_w_20px cm_mg_r_5" />&nbsp;<strong><% $screen_name %></strong></p>
+			<!--<p class="cm_txt_125 cm_mg_b_10"><img src="<% $profile_image_url %>" alt="" class="img_border cm_w_40px cm_mg_r_5" />&nbsp;<strong><% $screen_name %></strong></p>-->
+			<section class="cm_mg_b_10 clearfix">
+				<h1 class="cm_w_72 cm_float_r cm_mg_t_10"><% $screen_name|truncate:18:'..' %></h1>
+				<p class="cm_w_27 cm_float_l"><img src="<% $profile_image_url %>" alt="" class="img_border cm_w_40px cm_mg_r_5" /></p>
+			</section>
 			<ul class="cm_mg_b_10">
 				<li<% if $body_id == "admin_index" %> class="current"<% /if %>><a href="/admin">マイページトップ</a></li>
 				<li><a href="/user/<% $screen_name %>" target="_blank">あなたの紹介ページ</a></li>

@@ -277,31 +277,26 @@ class Admin extends CI_Controller {
 	private function _render()
 	{
 
+		$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+		$connect->format = "xml";
+		$api_url = "https://api.twitter.com/1/users/lookup.xml";
+		$method = "GET";
+		$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
+		$req = $connect->OAuthRequest($api_url,$method,$option);
+		$xml_users_lookup = simplexml_load_string($req);
+		$current_user_profile_image_url_https_normal=$xml_users_lookup->user->profile_image_url_https;
 
+		//users/lookupだとnormalサイズの画像しか返ってこないので無理やりbiggerにする
+		$pattern1 = "/_normal/";
+		$replace1 = "_bigger";
+		$current_user_profile_image_url_https_bigger = preg_replace($pattern1, $replace1, $current_user_profile_image_url_https_normal, 1);
 
-
-
-
-			$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
-			$connect->format = "xml";
-			$api_url = "https://api.twitter.com/1/users/lookup.xml";
-			$method = "GET";
-			$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
-			$req = $connect->OAuthRequest($api_url,$method,$option);
-			$xml_users_lookup = simplexml_load_string($req);
-			$this->smarty->assign("current_user_profile_image_url_https",$xml_users_lookup->user->profile_image_url_https);
-
-
-
-
-
-
-
-
+		$this->smarty->assign("profile_image_url",$current_user_profile_image_url_https_bigger);
 
 
 		$this->smarty->assign("id",$_SESSION['current_user']['id']);
 		$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
+		//$this->smarty->assign("screen_name","12345678901234567890");
 		$this->smarty->assign("body_id",$this->body_id);
 		$this->smarty->assign("body_class",$this->body_class);
 		$this->smarty->assign( 'content_tpl', $this->content_tpl );
