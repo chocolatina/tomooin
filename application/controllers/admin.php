@@ -276,6 +276,30 @@ class Admin extends CI_Controller {
 	
 	private function _render()
 	{
+
+
+
+
+
+
+			$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+			$connect->format = "xml";
+			$api_url = "https://api.twitter.com/1/users/lookup.xml";
+			$method = "GET";
+			$option = array("screen_name" => $_SESSION['current_user']['screen_name']);
+			$req = $connect->OAuthRequest($api_url,$method,$option);
+			$xml_users_lookup = simplexml_load_string($req);
+			$this->smarty->assign("current_user_profile_image_url_https",$xml_users_lookup->user->profile_image_url_https);
+
+
+
+
+
+
+
+
+
+
 		$this->smarty->assign("id",$_SESSION['current_user']['id']);
 		$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
 		$this->smarty->assign("body_id",$this->body_id);

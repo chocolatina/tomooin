@@ -25,7 +25,8 @@ class Login extends CI_Controller {
         $response = $this->twitter_oauth->get_access_token(false, $this->session->userdata('token_secret'));
         //$this->_store_in_db($response);「oauth_token」などをDBに登録しておけば、次回からは自動的にログインをして貰うこともできます。
         //var_dump($response['user_id']);
-		//exit;
+	//var_dump($response);
+	//exit;
 		
 		$query = $this->db->query("SELECT * from admin WHERE user_id = ". $response['user_id']);
 		//$rows = $query->result_array();
@@ -63,12 +64,11 @@ class Login extends CI_Controller {
 		}
 		//前にもログインしたことがあるとき
 		else{
+
 			session_start();
 			//$res=$rows[0];
 			$_SESSION['current_user']['id'] = $row->id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
-			//$_SESSION['current_user']['profile_image_url'] = $row->profile_image_url;
-			//$_SESSION['current_user']['profile_image_url_https'] = $row->profile_image_url_https;
 			header("Location: /admin");
 		}
     }
