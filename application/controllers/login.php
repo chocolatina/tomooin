@@ -56,6 +56,7 @@ class Login extends CI_Controller {
 			$query = $this->db->query("SELECT * from admin WHERE user_id = ". $response['user_id']);
 			$row = $query->row();
 			$_SESSION['current_user']['id'] = $row->id;
+			$_SESSION['current_user']['user_id'] = $row->user_id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
 			//$_SESSION['id'] = $row->id;
 			//var_dump($row);
@@ -68,6 +69,7 @@ class Login extends CI_Controller {
 			session_start();
 			//$res=$rows[0];
 			$_SESSION['current_user']['id'] = $row->id;
+			$_SESSION['current_user']['user_id'] = $row->user_id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
 			header("Location: /admin");
 		}

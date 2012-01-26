@@ -203,10 +203,8 @@ class Admin extends CI_Controller {
 			$this->content_tpl="admin/wrote.html";
 		
 			$sql = "SELECT * from table1 WHERE user_id = ? ORDER BY date DESC";
-			$query = $this->db->query($sql, array(14212710));
+			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id']));
 			$rows = $query->result();
-			//$this->smarty->assign("rows",$rows);
-			//var_dump($rows);
 
 
 
@@ -277,6 +275,7 @@ class Admin extends CI_Controller {
 	private function _render()
 	{
 
+		//セッションのscreen_nameをもとに、プロフィール画像を取ってくる
 		$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
 		$connect->format = "xml";
 		$api_url = "https://api.twitter.com/1/users/lookup.xml";
@@ -295,6 +294,7 @@ class Admin extends CI_Controller {
 
 
 		$this->smarty->assign("id",$_SESSION['current_user']['id']);
+		$this->smarty->assign("user_id",$_SESSION['current_user']['user_id']);
 		$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
 		//$this->smarty->assign("screen_name","12345678901234567890");
 		$this->smarty->assign("body_id",$this->body_id);
