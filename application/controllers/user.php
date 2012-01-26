@@ -53,7 +53,31 @@ class User extends CI_Controller {
 		$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
 		$query = $this->db->query($sql, array($this_user_user_id));
 		$rows = $query->result();
+		//$this->smarty->assign("rows",$rows);
+
+		//$rowsにscreen_nameを足してあげる
+
+		$i=0;
+		foreach ($rows as $key => $value){
+			$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+			$connect->format = "xml";
+			$api_url = "https://api.twitter.com/1/users/show.xml";
+			$method = "GET";
+			$option = array("user_id" => $value->user_id);
+			$req = $connect->OAuthRequest($api_url,$method,$option);
+			$user_list_req = simplexml_load_string($req);
+			$rows[$i]->user_screen_name=(string)$user_list_req->screen_name;
+			$i++;
+		};
 		$this->smarty->assign("rows",$rows);
+
+//var_dump($rows);
+//exit;
+
+
+
+
+
 
 		//サイドバー用に、セッションのscreen_nameをもとに、プロフィール画像などを取ってくる
 		$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
@@ -64,7 +88,6 @@ class User extends CI_Controller {
 		$req = $connect->OAuthRequest($api_url,$method,$option);
 		$xml_users_lookup = simplexml_load_string($req);
 
-//echo $req;
 		$current_user_profile_image_url_https_normal=$xml_users_lookup->user->profile_image_url_https;
 
 		//users/lookupだとnormalサイズの画像しか返ってこないので無理やりbiggerにする
@@ -80,7 +103,8 @@ class User extends CI_Controller {
 		$this->smarty->assign("this_user_location",$xml_users_lookup->user->location);
 		//フルネームも取る
 		$this->smarty->assign("this_user_name",$xml_users_lookup->user->name);
-
+		
+		//サイドバー用ここまで
 
 		
 		$this->body_id="user_index";
