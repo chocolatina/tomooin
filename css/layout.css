@@ -89,32 +89,36 @@ body {
 	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 }
-#wrapper .contents .side {
+
+
+
+
+.admin #wrapper .contents .side {
 	float:left;
 	width:200px;
 }
-#wrapper .contents .side ul{
+.admin #wrapper .contents .side ul{
 	border:1px solid #f0ede6;
 	border-width:1px 1px 0;
 }
-#wrapper .contents .side ul li{
+.admin #wrapper .contents .side ul li{
 	border-bottom:1px solid #e0ddd7;
 	border-top:1px solid #fffef6;
 }
-#wrapper .contents .side ul li a{
+.admin #wrapper .contents .side ul li a{
 	text-decoration:none;
 	padding:5px;
 	display:block;
 	background:#f5f4ec;
 }
-#wrapper .contents .side ul li a:hover{
+.admin #wrapper .contents .side ul li a:hover{
 	background:#fff;
 }
-#wrapper .contents .side ul li.current a{
+.admin #wrapper .contents .side ul li.current a{
 	background:#fff;
 }
 
-#wrapper .contents .side ul li a span{
+.admin #wrapper .contents .side ul li a span{
 	background:#37a4b4;
 	float:right;
 	padding:0 1em;
@@ -125,10 +129,25 @@ body {
 	-webkit-border-radius: 1em;
 }
 
-#wrapper .contents .main {
+.admin #wrapper .contents .main {
 	float:right;
 	width:580px;
 }
+
+
+
+.user #wrapper .contents .side {
+	float:left;
+	width:150px;
+}
+
+.user #wrapper .contents .main {
+	float:right;
+	width:630px;
+}
+
+
+
 #footer{
 }
     /*#wrapper #contents a{color:#fc881b;}

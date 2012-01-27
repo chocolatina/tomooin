@@ -7,7 +7,7 @@
 			<ul class="cm_mg_b_10">
 				<li<% if $body_id == "admin_index" %> class="current"<% /if %>><a href="/admin">マイページトップ</a></li>
 				<li><a href="/user/<% $screen_name %>" target="_blank">あなたの紹介ページ</a></li>
-				<li<% if $body_id == "admin_received" %> class="current"<% /if %>><a href="/admin/received">届いた紹介文<span>100</span></a></li>
+				<li<% if $body_id == "admin_received" %> class="current"<% /if %>><a href="/admin/received">届いた紹介文<% if $count_unread_rows!="0" %><span><% $count_unread_rows %></span><% /if %></a></li>
 				<!--<li<% if ($body_id == "admin_write")||($body_id == "admin_write_form") %> class="current"<% /if %>><a href="/admin/write">紹介文を書く</a></li>-->
 				<li<% if $body_id == "admin_wrote" %> class="current"<% /if %>><a href="/admin/wrote">書いた紹介文</a></li>
 				<li<% if $body_id == "admin_setting" %> class="current"<% /if %>><a href="/admin/setting">個人設定</a></li>

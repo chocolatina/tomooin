@@ -134,6 +134,12 @@ footer,header,hgroup,menu,nav,section,summary
 		background:#fff;
 	}
 
+	img.img_border_l{
+		border: 1px solid #eae7e1;
+		padding: 4px;
+		background:#fff;
+	}
+
 /* フォーム--------------------------------------------------------------------- */
 
 
@@ -510,9 +516,19 @@ a.button2s:hover{
 		margin-bottom:15px;
 	}
 
+	.area_border_bottom_s{
+		border-bottom:1px dotted #ccc;
+		padding-bottom:8px;
+		margin-bottom:8px;
+	}
+
 	.area_border_top{
 		border-top:1px dotted #ccc;
 		padding-top:15px;
+	}
+	.area_border_top_s{
+		border-top:1px dotted #ccc;
+		padding-top:8px;
 	}
 	/*.area_red{
         border: 2px solid #fd9ead;

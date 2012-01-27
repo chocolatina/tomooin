@@ -24,6 +24,12 @@ class User extends CI_Controller {
 			$this->smarty->assign("is_loggedin",0);
 		}
 		
+		
+		//もし/user/直下だったらトップに戻す
+		if(!isset($this->uri->segments[2])){
+			header("Location: /");
+		}
+		
 		//URIの/user/以下をuser_screen_name変数に入れる
 		//echo $this->uri->segments[2];
 		//exit;
@@ -92,7 +98,8 @@ class User extends CI_Controller {
 
 		//users/lookupだとnormalサイズの画像しか返ってこないので無理やりbiggerにする
 		$pattern1 = "/_normal/";
-		$replace1 = "_bigger";
+		$replace1 = "_reasonably_small";
+		//$replace1 = "_original";
 		$this_user_profile_image_url_https_bigger = preg_replace($pattern1, $replace1, $current_user_profile_image_url_https_normal, 1);
 
 		$this->smarty->assign("this_user_profile_image_url",$this_user_profile_image_url_https_bigger);

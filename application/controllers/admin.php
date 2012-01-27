@@ -112,6 +112,38 @@ class Admin extends CI_Controller {
 		}
 		else{
 			
+			//このユーザーに届いた紹介文で未開封なら、開封済み非公開にする
+			$sql = "UPDATE table1 SET status='1' WHERE friend_id = ? AND status = ?";
+			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
+			
+			
+			//現在のユーザーに届いた紹介文を取ってくる
+			$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
+			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id']));
+			$rows = $query->result();
+			
+			
+			//$rowsに紹介文の筆者のscreen_nameを足してあげる
+			
+			$i=0;
+			foreach ($rows as $key => $value){
+				$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+				$connect->format = "xml";
+				$api_url = "https://api.twitter.com/1/users/show.xml";
+				$method = "GET";
+				$option = array("user_id" => $value->user_id);
+				$req = $connect->OAuthRequest($api_url,$method,$option);
+				$friend_list_req = simplexml_load_string($req);
+				$rows[$i]->user_screen_name=(string)$friend_list_req->screen_name;
+				$rows[$i]->user_profile_image_url_https=(string)$friend_list_req->profile_image_url_https;
+				$i++;
+			};
+			
+			$this->smarty->assign("rows",$rows);
+			
+			
+			
+			
 			$this->body_id="admin_received";
 			$this->content_tpl="admin/received.html";
 			
@@ -292,6 +324,17 @@ class Admin extends CI_Controller {
 
 		$this->smarty->assign("profile_image_url",$current_user_profile_image_url_https_bigger);
 
+
+
+			
+		//サイドバーとadminトップ用。このユーザーに届いた紹介文で未開封のものの数字を取ってくる
+		$sql = "SELECT * from table1 WHERE friend_id = ? AND status = ?";
+		$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
+		$unread_rows = $query->result();
+		//echo count($unread_rows);
+		//exit;
+		$this->smarty->assign("count_unread_rows",count($unread_rows));
+			
 
 		$this->smarty->assign("id",$_SESSION['current_user']['id']);
 		$this->smarty->assign("user_id",$_SESSION['current_user']['user_id']);

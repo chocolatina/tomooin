@@ -3,7 +3,8 @@
 		<div class="main">
 			<section class="cm_mg_b_20">
 				<h1 class="icon_pic_02">お知らせ</h1>
-				<p class="cm_txt_cblue"><strong>1件の新着紹介文が届いています！</strong></p>
+				<% if $count_unread_rows!="0" %><p><strong><a href="/admin/received" class="cm_txt_cblue"><% $count_unread_rows %>件の新着紹介文が届いています！</a></strong></p><% /if %>
+				
 			</section>
 			<section class="cm_mg_b_20">
 				<h1 class="icon_pic_08">紹介文を書く</h1>

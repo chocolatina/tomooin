@@ -1,74 +1,30 @@
 	<div class="contents clearfix">
 		<nav class="side">
-			<p><img src="<% $this_user_profile_image_url %>" alt="<% $this_user_screen_name %>" /><% $this_user_screen_name %></p>
-			<p><% $this_user_name %></p>
-			<p><% $this_user_location %></p>
-			<p><% $this_user_description %></p>
+			<p class="cm_mg_b_10 area_border_bottom"><img src="<% $this_user_profile_image_url %>" alt="<% $this_user_screen_name %>" class="img_border_l cm_mg_r_5" /></p>
+			<h1 class="cm_txt_150 area_border_bottom_s"><% $this_user_screen_name %></h1>
+			<p class="area_border_bottom_s"><a class="button1s" href="/admin/write/form/?screen_name=<% $this_user_screen_name %>">この人の紹介文を書く</a></p>
+			<p class="area_border_bottom_s">名前：<% $this_user_name %></p>
+			<% if ($this_user_location!="") %><p class="area_border_bottom_s">在住：<% $this_user_location %></p><% /if %>
+			<% if ($this_user_description!="") %><p class="area_border_bottom_s"><% $this_user_description %></p><% /if %>
 			<p>使っているサービス一覧</p>
-			<p>chocolatinaさんが紹介文を贈った友達</p>
+			<p><% $this_user_screen_name %>さんが紹介文を贈った友達</p>
 			<p>ソーシャルいいね</p>
 		</nav>
 		<section class="main">
-			<h1 class="icon_pic_55">書かれた紹介文の一覧</h1>
+			<h1 class="icon_pic_55">友達からの <% $this_user_screen_name %> さんの紹介</h1>
 
 			<% foreach $rows as $row %>
-				<table class="table_01 cm_w_100 cm_mg_b_10">
-					<tr class="odd">
-						<th class="cm_w_30">あああ</th>
-						<td><% $row->user_screen_name %><% * $row->user_id * %></td>
-					</tr>
-					<tr class="even">
-						<th>あああ</th>
-						<td><% $row->relation %></td>
-					</tr>
-					<tr class="odd">
-						<th>紹介文</th>
-						<td><% $row->text %></td>
-					</tr>
-					<tr class="even">
-						<th>日付</th>
-						<td><% $row->date %></td>
-					</tr>
-				</table>
+				<% if $row->status=="2" %>
+					<div class="clearfix area_border_bottom_s">
+						<div class="cm_float_l cm_w_20">
+							<h1><% $row->relation %></h1>
+						</div>
+						<div class="cm_float_r cm_w_78">
+							<p><% $row->text %></p>
+						</div>
+					</div>
+					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <% $row->user_screen_name %><% * $row->user_id * %></p>
+				<% /if %>
 			<% /foreach %>
-
-
-
-
-
-
-
-
-
-			<p>aaaaaa</p>
-			<p class="cm_txt_c cm_mg_b_10"><a class="button1" href="#">あああああ</a>&nbsp;<a class="button1s" href="#">あああああ</a>&nbsp;<a class="button2" href="#">あああああ</a>&nbsp;<a class="button2s" href="#">あああああ</a></p>
-			<div class="clearfix area_border_bottom">
-				<div class="cm_float_l cm_w_20">
-					<h1>ほげほげ</h1>
-				</div>
-				<div class="cm_float_r cm_w_78">
-					<p>ああああああ</p>
-				</div>
-			</div>
-			<div class="clearfix area_border_bottom">
-				<div class="cm_float_l cm_w_20">
-					<h1>ほげほげ</h1>
-				</div>
-				<div class="cm_float_r cm_w_78">
-					<p>ああああああ</p>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="cm_float_l cm_w_20">
-					<h1>ほげほげ</h1>
-				</div>
-				<div class="cm_float_r cm_w_78">
-					<p>ああああああ</p>
-				</div>
-			</div>
 		</section>
 	</div>
-
-
-
-	
