@@ -1,10 +1,104 @@
 	<div class="contents clearfix">
-	<% include file='include/admin_nav.html' %>
+	<% * include file='include/admin_nav.html' * %>
 		<div class="main">
 			<section>
 				<h1 class="icon_pic_02">個人設定</h1>
+				<section>
+					<h1 class="cm_mg_b_20">プロフィール設定</h1>
+					<form method="post" name="frm" action="/admin/setting/create">
+						<section>
+							<h1 class="cm_txt_100 area_border_bottom">利用中のサービス</h1>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://www.facebook.com/" target="_blank">Facebook</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_facebook]">http://www.facebook.com/profile.php?id=<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://mixi.jp/" target="_blank">mixi</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_mixi]">http://mixi.jp/show_profile.pl?id=<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://tumblr.com/" target="_blank">Tumblr</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_tumblr]">http://<strong class="cm_txt_cblue">ここを入力</strong>.tumblr.com</p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://b.hatena.ne.jp/" target="_blank">はてなブックマーク</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_hatenab]">http://b.hatena.ne.jp/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://d.hatena.ne.jp/" target="_blank">はてなダイアリー</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_hatenad]">http://d.hatena.ne.jp/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://theinterviews.jp/" target="_blank">ザ・インタビューズ</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_the]">http://theinterviews.jp/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://http://www.i4pc.jp/" target="_blank">Instagram</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_instagram]">http://www.i4pc.jp/user/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://foursquare.com/" target="_blank">foursquare</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_foursquare]">https://ja.foursquare.com/user/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://ameblo.jp/" target="_blank">アメーバブログ</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_ameblo]">http://ameblo.jp/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://jugem.jp/" target="_blank">JUGEM</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_jugem]">http://<strong class="cm_txt_cblue">ここを入力</strong>.jugem.jp/</p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://www.flickr.com/" target="_blank">Flickr</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_flickr]">http://www.flickr.com/photos/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://youtube.com/" target="_blank">Youtube</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_youtube]">http://youtube.com/user/<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>
+							<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://www.nicovideo.jp/" target="_blank">ニコニコ動画</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_nicovideo]"><strong class="cm_txt_cblue">IDを入力</strong></p>
+								</div>
+							</section>
+							<!--<section class="cm_mg_b_10 clearfix">
+								<h1 class="cm_float_l cm_w_20 cm_txt_100 cm_txt_r cm_mg_t_2"><a href="http://■/" target="_blank">■</a></h1>
+								<div class="cm_float_r cm_w_78">
+									<p><input type="text" class="frm_text cm_txt_85 cm_w_10em cm_mg_r_20 cm_ime_dis" name="params[external_url_■]">■<strong class="cm_txt_cblue">ここを入力</strong></p>
+								</div>
+							</section>-->
+							<p class="cm_txt_c cm_mg_b_10"><a class="button2" href="#" onclick="document.frm.submit()">設定</a></p>
+						</section>
+					</form>
+				</section>
+				<!--<p class="cm_mg_b_20">プロフィール設定</p>
 				<p class="cm_mg_b_20">tomooからのダイレクトメールを希望するかどうか</p>
-				<p class="cm_mg_b_20">tomooをフォローすると楽しいよ的な</p>
+				<p class="cm_mg_b_20">tomooをフォローすると楽しいよ的な</p>-->
 			</section>
 		</div>
 	</div>

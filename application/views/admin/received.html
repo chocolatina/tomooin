@@ -16,13 +16,13 @@
 					</tr>
 					<% foreach $rows as $row %>
 					<tr class="even">
-							<td rowspan="2"><input type="checkbox" id="<% $row->user_id %>" /></td>
+							<td rowspan="2"><% * $row->id * %><% * $row->status * %><input type="checkbox" id="<% $row->user_id %>" /></td>
 							<td style="border-right:none"><img src="<% $row->user_profile_image_url_https %>" class="img_border cm_w_40px cm_mg_r_10" alt="<% $row->user_screen_name %>" /></td>
 							<td class="cm_txt_fwb"><% $row->user_screen_name %></td>
 							<td><% $row->relation %></td>
 							<td><% $row->date %></td>
 							<td>[<a href="/user/<% $row->user_screen_name %>">→</a>]</td>
-							<td><a class="button1s" href="">公開</a></td>
+							<td><a class="button1s" href="/admin/received/publish?id=<% $row->id %>">公開</a></td>
 					</tr>
 					<tr class="even">
 						<td colspan="6"><% $row->text %></td>

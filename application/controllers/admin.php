@@ -150,6 +150,16 @@ class Admin extends CI_Controller {
 			$this->_render();
 		}
 	}
+
+	public function received_publish()
+	{
+		session_start();
+
+		$sql = "UPDATE table1 SET status='2' WHERE id= ? AND friend_id = ?";
+		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['user_id']));
+		
+		header("Location: /admin/received");
+	}
 	public function write()
 	{
 		session_start();
@@ -278,14 +288,6 @@ class Admin extends CI_Controller {
 			//exit;
 			$this->smarty->assign("rows",$rows);
 
-
-
-
-
-
-
-
-			
 			$this->_render();
 		}
 	}
@@ -302,6 +304,17 @@ class Admin extends CI_Controller {
 			
 			$this->_render();
 		}
+	}
+	public function setting_create()
+	{
+		session_start();
+		
+		$params = $_POST["params"];
+		//ここは本当はINSERTじゃなくてUPDATEにする。INSERTははじめてpublishされるとき全部NULLで渡す。
+		$sql = "INSERT INTO user_setting (tomoo_id,external_url_mixi) VALUES (?,?)";
+		$this->db->query($sql,array($_SESSION['current_user']['id'],$params["external_url_mixi"]));
+		
+		header("Location: /admin/setting");
 	}
 	
 	private function _render()

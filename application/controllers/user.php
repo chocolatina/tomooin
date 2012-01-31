@@ -111,7 +111,39 @@ class User extends CI_Controller {
 		//フルネームも取る
 		$this->smarty->assign("this_user_name",$xml_users_lookup->user->name);
 		
-		//サイドバー用ここまで
+		//サイドバー用twitterAPI通信ここまで
+		
+		
+		//サイドバー用この人が紹介文を書いた友達の一覧
+		$sql = "SELECT * from table1 WHERE user_id = ? ORDER BY date DESC";
+		$query = $this->db->query($sql, array($this_user_user_id));
+		$wrote_rows = $query->result();
+		
+		//$wrote_rowsにscreen_nameを足してあげる
+		$i=0;
+		foreach ($wrote_rows as $key => $value){
+			$connect = new TwitterOAuth(OAUTH_TWITTER_KEY, OAUTH_TWITTER_SECRET, OAUTH_TWITTER_ACCESS_TOKEN, OAUTH_TWITTER_ACCESS_TOKEN_SECRET);
+			$connect->format = "xml";
+			$api_url = "https://api.twitter.com/1/users/show.xml";
+			$method = "GET";
+			$option = array("user_id" => $value->friend_id);
+			$req = $connect->OAuthRequest($api_url,$method,$option);
+			$user_list_req = simplexml_load_string($req);
+			$wrote_rows[$i]->friend_screen_name=(string)$user_list_req->screen_name;
+			$wrote_rows[$i]->friend_profile_image_url=(string)$user_list_req->profile_image_url;
+			$i++;
+		};
+		
+		//var_dump($wrote_rows);
+		
+		$this->smarty->assign("wrote_rows",$wrote_rows);
+		
+		
+		
+		//friend_id
+		//var_dump($wrote_rows);
+		//exit;
+		
 
 		
 		$this->body_id="user_index";

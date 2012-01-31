@@ -12,8 +12,7 @@
 						<th colspan="2">友達</th>
 						<th>関係</th>
 						<th>日付</th>
-						<th>確認</th>
-						<th>編集</th>
+						<th>&nbsp;</th>
 				</tr>
 				<% foreach $rows as $row %>
 				<tr class="even">
@@ -22,8 +21,15 @@
 						<td class="cm_txt_fwb"><% $row->friend_screen_name %></td>
 						<td><% $row->relation %></td>
 						<td><% $row->date %></td>
-						<td>[<a href="/user/<% $row->friend_screen_name %>">→</a>]</td>
-						<td>[/]</td>
+						<td>
+							<% if $row->status=="0" %>
+								未開封
+							<% elseif $row->status=="1"||$row->status=="3" %>
+								未公開
+							<% elseif $row->status=="2" %>
+								[<a href="/user/<% $row->friend_screen_name %>">確認</a>]
+							<% /if %>
+						</td>
 				</tr>
 				<tr class="even">
 					<td colspan="6"><% $row->text %></td>

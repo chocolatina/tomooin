@@ -6,9 +6,28 @@
 			<p class="area_border_bottom_s">名前：<% $this_user_name %></p>
 			<% if ($this_user_location!="") %><p class="area_border_bottom_s">在住：<% $this_user_location %></p><% /if %>
 			<% if ($this_user_description!="") %><p class="area_border_bottom_s"><% $this_user_description %></p><% /if %>
-			<p>使っているサービス一覧</p>
-			<p><% $this_user_screen_name %>さんが紹介文を贈った友達</p>
-			<p>ソーシャルいいね</p>
+			<section class="area_border_bottom_s">
+				<h1 class="cm_txt_100 cm_lh_12">利用しているサービス</h1>
+				<ul class="clearfix">
+					<li class="cm_w_30px cm_float_l"><a href="■" target="_blank">ああ</a></li>
+				</ul>
+			</section>
+			<section class="area_border_bottom_s">
+				<h1 class="cm_txt_100 cm_lh_12"><% $this_user_screen_name %>さんが<br>紹介文を贈った友達</h1>
+				<ul class="clearfix">
+					<% foreach $wrote_rows as $wrote_row %>
+						<% if $wrote_row->status=="2" %>
+							<li class="cm_w_30px cm_float_l"><img src="<% $wrote_row->friend_profile_image_url %>" alt="<% $wrote_row->friend_screen_name %>" class="cm_w_20px" /></li>
+						<% /if %>
+					<% /foreach %>
+				</ul>
+			</section>
+			<section>
+				<h1 class="cm_txt_100 cm_lh_12">このページを共有</h1>
+				<ul class="clearfix">
+					<li class="cm_w_30px cm_float_l"><a href="■" target="_blank">ああ</a></li>
+				</ul>
+			</section>
 		</nav>
 		<section class="main">
 			<h1 class="icon_pic_55">友達からの <% $this_user_screen_name %> さんの紹介</h1>
