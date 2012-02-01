@@ -61,6 +61,43 @@ class Login extends CI_Controller {
 			//$_SESSION['id'] = $row->id;
 			//var_dump($row);
 			//exit;
+			
+			//初めてのログインなので、settingページ用にuser_settingテーブルに一行作ってあげる
+			$sql = "INSERT INTO user_setting (
+					tomoo_id,
+					external_url_facebook,
+					external_url_mixi,
+					external_url_tumblr,
+					external_url_hatenab,
+					external_url_hatenad,
+					external_url_the,
+					external_url_instagram,
+					external_url_foursquare,
+					external_url_ameblo,
+					external_url_jugem,
+					external_url_flickr,
+					external_url_youtube,
+					external_url_nicovideo)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			$this->db->query($sql,array(
+			$_SESSION['current_user']['id'],
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				''
+			));
+			
+			
+			
 			header("Location: /admin");
 		}
 		//前にもログインしたことがあるとき

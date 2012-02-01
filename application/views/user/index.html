@@ -17,7 +17,7 @@
 				<ul class="clearfix">
 					<% foreach $wrote_rows as $wrote_row %>
 						<% if $wrote_row->status=="2" %>
-							<li class="cm_w_30px cm_float_l"><img src="<% $wrote_row->friend_profile_image_url %>" alt="<% $wrote_row->friend_screen_name %>" class="cm_w_20px" /></li>
+							<li class="cm_w_30px cm_float_l"><a href="/user/<% $wrote_row->friend_screen_name %>"><img src="<% $wrote_row->friend_profile_image_url %>" alt="<% $wrote_row->friend_screen_name %>" class="cm_w_20px" /></a></li>
 						<% /if %>
 					<% /foreach %>
 				</ul>
@@ -42,7 +42,7 @@
 							<p><% $row->text %></p>
 						</div>
 					</div>
-					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <% $row->user_screen_name %><% * $row->user_id * %></p>
+					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <a href="/user/<% $row->user_screen_name %>"><% $row->user_screen_name %></a><% * $row->user_id * %></p>
 				<% /if %>
 			<% /foreach %>
 		</section>

@@ -308,12 +308,49 @@ class Admin extends CI_Controller {
 	public function setting_create()
 	{
 		session_start();
+		//echo $_SESSION['current_user']['id'];
+		//var_dump($_POST["params"]);
+		//exit;
 		
+		//ログイン時に作成したuser_settingの該当行をUPDATEする。最初は全部nullになってる。
 		$params = $_POST["params"];
-		//ここは本当はINSERTじゃなくてUPDATEにする。INSERTははじめてpublishされるとき全部NULLで渡す。
-		$sql = "INSERT INTO user_setting (tomoo_id,external_url_mixi) VALUES (?,?)";
-		$this->db->query($sql,array($_SESSION['current_user']['id'],$params["external_url_mixi"]));
+		$sql = "UPDATE user_setting SET
+				external_url_facebook= ?,
+				external_url_mixi= ?,
+				external_url_tumblr= ?,
+				external_url_hatenab= ?,
+				external_url_hatenad= ?,
+				external_url_the= ?,
+				external_url_instagram= ?,
+				external_url_foursquare= ?,
+				external_url_ameblo= ?,
+				external_url_jugem= ?,
+				external_url_flickr= ?,
+				external_url_youtube= ?,
+				external_url_nicovideo= ?
+				WHERE tomoo_id = ?";
+		$this->db->query($sql,array(
+			$params["external_url_facebook"],
+			$params["external_url_mixi"],
+			$params["external_url_tumblr"],
+			$params["external_url_hatenab"],
+			$params["external_url_hatenad"],
+			$params["external_url_the"],
+			$params["external_url_instagram"],
+			$params["external_url_foursquare"],
+			$params["external_url_ameblo"],
+			$params["external_url_jugem"],
+			$params["external_url_flickr"],
+			$params["external_url_youtube"],
+			$params["external_url_nicovideo"],
+			$_SESSION['current_user']['id']
+			));
 		
+		//$params["external_url_facebook"]
+		
+			//$sql = "UPDATE table1 SET status='1' WHERE friend_id = ? AND status = ?";
+			//$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
+			
 		header("Location: /admin/setting");
 	}
 	

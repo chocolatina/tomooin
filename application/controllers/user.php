@@ -140,10 +140,14 @@ class User extends CI_Controller {
 		
 		
 		
-		//friend_id
-		//var_dump($wrote_rows);
-		//exit;
 		
+		//サイドバー用この人の使っている外部サービス
+		//この人のadminテーブルのidを取得
+		$sql = "SELECT * from admin WHERE user_id = ?";
+		$query = $this->db->query($sql, array($this_user_user_id));
+		$user_rows = $query->result();
+		//これに入ってるidをもとに外部サービスの情報をとってくる
+		//var_dump($user_rows);
 
 		
 		$this->body_id="user_index";
