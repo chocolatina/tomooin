@@ -8,7 +8,7 @@ class Home extends CI_Controller {
 	{
 		//ログイン中かどうか判定
 		session_start();
-		if(isset($_SESSION['current_user']['id'])){
+		if(isset($_SESSION['current_user']['tomoo_id'])){
 			$this->smarty->assign("is_loggedin",1);
 			$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
 		}

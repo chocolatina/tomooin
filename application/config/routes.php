@@ -45,6 +45,7 @@ $route['admin/write/form'] = "admin/write_form";
 $route['admin/write/create'] = "admin/write_create";
 $route['admin/setting/create'] = "admin/setting_create";
 $route['admin/received/publish'] = "admin/received_publish";
+$route['admin/received/hide'] = "admin/received_hide";
 $route['admin/received/delete'] = "admin/received_delete";
 $route['admin/wrote/delete'] = "admin/wrote_delete";
 $route['user/:any'] = "user/index";

@@ -28,7 +28,7 @@ class Login extends CI_Controller {
 	//var_dump($response);
 	//exit;
 		
-		$query = $this->db->query("SELECT * from admin WHERE user_id = ". $response['user_id']);
+		$query = $this->db->query("SELECT * from admin WHERE twitter_user_id = ". $response['user_id']);
 		//$rows = $query->result_array();
 		
 		
@@ -47,18 +47,20 @@ class Login extends CI_Controller {
 		
 		//var_dump($rows);
 		//exit;
-		//初めてのログインの時。つまり、adminのtable内にuser_idがなかったとき
+		//初めてのログインの時。つまり、adminのtable内にtwitter_user_idがなかったとき
 		if( empty($row) ){		
 			//もし結果がnullだったらはじめてなのでクリエイトしてあげる処理を書く
-			$sql = "INSERT INTO admin (provider,screen_name,user_id) VALUES (?,?,?)";
+			$sql = "INSERT INTO admin (provider,screen_name,twitter_user_id) VALUES (?,?,?)";
 			$ret = $this->db->query($sql,array("twitter",$response["screen_name"],$response["user_id"]));
 			
-			$query = $this->db->query("SELECT * from admin WHERE user_id = ". $response['user_id']);
+			$query = $this->db->query("SELECT * from admin WHERE twitter_user_id = ". $response['user_id']);
 			$row = $query->row();
-			$_SESSION['current_user']['id'] = $row->id;
-			$_SESSION['current_user']['user_id'] = $row->user_id;
+			//var_dump($row);
+			//exit;
+			$_SESSION['current_user']['tomoo_id'] = $row->tomoo_id;
+			$_SESSION['current_user']['twitter_user_id'] = $row->twitter_user_id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
-			//$_SESSION['id'] = $row->id;
+			//$_SESSION['tomoo_id'] = $row->tomoo_id;
 			//var_dump($row);
 			//exit;
 			
@@ -80,7 +82,7 @@ class Login extends CI_Controller {
 					external_url_nicovideo)
 			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			$this->db->query($sql,array(
-			$_SESSION['current_user']['id'],
+			$_SESSION['current_user']['tomoo_id'],
 				'',
 				'',
 				'',
@@ -105,8 +107,8 @@ class Login extends CI_Controller {
 
 			session_start();
 			//$res=$rows[0];
-			$_SESSION['current_user']['id'] = $row->id;
-			$_SESSION['current_user']['user_id'] = $row->user_id;
+			$_SESSION['current_user']['tomoo_id'] = $row->tomoo_id;
+			$_SESSION['current_user']['twitter_user_id'] = $row->twitter_user_id;
 			$_SESSION['current_user']['screen_name'] = $row->screen_name;
 			header("Location: /admin");
 		}

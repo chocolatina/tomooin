@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
@@ -107,19 +107,19 @@ class Admin extends CI_Controller {
 	public function received()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
 			
 			//このユーザーに届いた紹介文で未開封なら、開封済み非公開にする
 			$sql = "UPDATE table1 SET status='1' WHERE friend_id = ? AND status = ?";
-			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
+			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 			
 			
 			//現在のユーザーに届いた紹介文を取ってくる
 			$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
-			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id']));
+			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id']));
 			$rows = $query->result();
 			
 			
@@ -131,7 +131,7 @@ class Admin extends CI_Controller {
 				$connect->format = "xml";
 				$api_url = "https://api.twitter.com/1/users/show.xml";
 				$method = "GET";
-				$option = array("user_id" => $value->user_id);
+				$option = array("user_id" => $value->twitter_user_id);
 				$req = $connect->OAuthRequest($api_url,$method,$option);
 				$friend_list_req = simplexml_load_string($req);
 				$rows[$i]->user_screen_name=(string)$friend_list_req->screen_name;
@@ -156,14 +156,24 @@ class Admin extends CI_Controller {
 		session_start();
 
 		$sql = "UPDATE table1 SET status='2' WHERE id= ? AND friend_id = ?";
-		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['user_id']));
+		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
+		
+		header("Location: /admin/received");
+	}
+
+	public function received_hide()
+	{
+		session_start();
+
+		$sql = "UPDATE table1 SET status='1' WHERE id= ? AND friend_id = ?";
+		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
 		
 		header("Location: /admin/received");
 	}
 	public function write()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
@@ -176,18 +186,18 @@ class Admin extends CI_Controller {
 	public function write_form()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
 			if(htmlspecialchars(@$_GET['screen_name'])) {
 				//自分のidを取得
-				$query = $this->db->query("SELECT * from admin WHERE id = ". $_SESSION['current_user']['id']);
+				$query = $this->db->query("SELECT * from admin WHERE tomoo_id = ". $_SESSION['current_user']['tomoo_id']);
 				$row = $query->row();
 				//echo $row->id;
 				//var_dump($query);
 				//exit;
-				$this->smarty->assign("user_id",$row->user_id);
+				$this->smarty->assign("user_id",$row->twitter_user_id);
 				//友人の名前を取得
 				$friend_screen_name = $_GET['screen_name'];
 				$this->smarty->assign("friend_screen_name",$_GET['screen_name']);
@@ -227,8 +237,8 @@ class Admin extends CI_Controller {
 	{
 		
 		$params = $_POST["params"];
-		$sql = "INSERT INTO table1 (ip,date,user_id,friend_id,text,relation) VALUES (?,?,?,?,?,?)";
-		$this->db->query($sql,array($params["ip"],$params["date"],$params["user_id"],$params["friend_id"],$params["text"],$params["relation"]));
+		$sql = "INSERT INTO table1 (ip,date,twitter_user_id,friend_id,text,relation) VALUES (?,?,?,?,?,?)";
+		$this->db->query($sql,array($params["ip"],$params["date"],$params["twitter_user_id"],$params["friend_id"],$params["text"],$params["relation"]));
 		
 		header("Location: /admin/wrote");
 	}
@@ -236,7 +246,7 @@ class Admin extends CI_Controller {
 	public function wrote()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
@@ -244,8 +254,8 @@ class Admin extends CI_Controller {
 			$this->body_id="admin_wrote";
 			$this->content_tpl="admin/wrote.html";
 		
-			$sql = "SELECT * from table1 WHERE user_id = ? ORDER BY date DESC";
-			$query = $this->db->query($sql, array($_SESSION['current_user']['user_id']));
+			$sql = "SELECT * from table1 WHERE twitter_user_id = ? ORDER BY date DESC";
+			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id']));
 			$rows = $query->result();
 
 
@@ -294,7 +304,7 @@ class Admin extends CI_Controller {
 	public function setting()
 	{
 		session_start();
-		if(empty($_SESSION['current_user']['id'])){
+		if(empty($_SESSION['current_user']['tomoo_id'])){
 			header("Location: /login/twitter");
 		}
 		else{
@@ -308,7 +318,7 @@ class Admin extends CI_Controller {
 	public function setting_create()
 	{
 		session_start();
-		//echo $_SESSION['current_user']['id'];
+		//echo $_SESSION['current_user']['tomoo_id'];
 		//var_dump($_POST["params"]);
 		//exit;
 		
@@ -343,7 +353,7 @@ class Admin extends CI_Controller {
 			$params["external_url_flickr"],
 			$params["external_url_youtube"],
 			$params["external_url_nicovideo"],
-			$_SESSION['current_user']['id']
+			$_SESSION['current_user']['tomoo_id']
 			));
 		
 		//$params["external_url_facebook"]
@@ -379,15 +389,15 @@ class Admin extends CI_Controller {
 			
 		//サイドバーとadminトップ用。このユーザーに届いた紹介文で未開封のものの数字を取ってくる
 		$sql = "SELECT * from table1 WHERE friend_id = ? AND status = ?";
-		$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
+		$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 		$unread_rows = $query->result();
 		//echo count($unread_rows);
 		//exit;
 		$this->smarty->assign("count_unread_rows",count($unread_rows));
 			
 
-		$this->smarty->assign("id",$_SESSION['current_user']['id']);
-		$this->smarty->assign("user_id",$_SESSION['current_user']['user_id']);
+		$this->smarty->assign("id",$_SESSION['current_user']['tomoo_id']);
+		$this->smarty->assign("user_id",$_SESSION['current_user']['twitter_user_id']);
 		$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
 		//$this->smarty->assign("screen_name","12345678901234567890");
 		$this->smarty->assign("body_id",$this->body_id);

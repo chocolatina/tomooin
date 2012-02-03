@@ -16,7 +16,7 @@ class User extends CI_Controller {
 
 		//ログイン中かどうか判定
 		session_start();
-		if(isset($_SESSION['current_user']['id'])){
+		if(isset($_SESSION['current_user']['tomoo_id'])){
 			$this->smarty->assign("is_loggedin",1);
 			$this->smarty->assign("screen_name",$_SESSION['current_user']['screen_name']);
 		}
@@ -46,18 +46,18 @@ class User extends CI_Controller {
 		$req = $connect->OAuthRequest($api_url,$method,$option);
 
 		$xml_users_lookup = simplexml_load_string($req);
-		$this_user_user_id=$xml_users_lookup->user->id;
+		$this_user_twitter_user_id=$xml_users_lookup->user->id;
 
 		//アサイン
 		$this->smarty->assign("this_user_screen_name",$this_user_screen_name);
-		$this->smarty->assign("this_user_user_id",$this_user_user_id);
+		$this->smarty->assign("this_user_twitter_user_id",$this_user_twitter_user_id);
 		//var_dump($xml_users_lookup);
 		//echo $xml_users_lookup->user->id;
 		//exit;
 
 		//ユーザーのidを元に書かれた紹介文を取ってくる
 		$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
-		$query = $this->db->query($sql, array($this_user_user_id));
+		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$rows = $query->result();
 		//$this->smarty->assign("rows",$rows);
 
@@ -69,7 +69,7 @@ class User extends CI_Controller {
 			$connect->format = "xml";
 			$api_url = "https://api.twitter.com/1/users/show.xml";
 			$method = "GET";
-			$option = array("user_id" => $value->user_id);
+			$option = array("user_id" => $value->twitter_user_id);
 			$req = $connect->OAuthRequest($api_url,$method,$option);
 			$user_list_req = simplexml_load_string($req);
 			$rows[$i]->user_screen_name=(string)$user_list_req->screen_name;
@@ -115,8 +115,8 @@ class User extends CI_Controller {
 		
 		
 		//サイドバー用この人が紹介文を書いた友達の一覧
-		$sql = "SELECT * from table1 WHERE user_id = ? ORDER BY date DESC";
-		$query = $this->db->query($sql, array($this_user_user_id));
+		$sql = "SELECT * from table1 WHERE twitter_user_id = ? ORDER BY date DESC";
+		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$wrote_rows = $query->result();
 		
 		//$wrote_rowsにscreen_nameを足してあげる
@@ -143,8 +143,8 @@ class User extends CI_Controller {
 		
 		//サイドバー用この人の使っている外部サービス
 		//この人のadminテーブルのidを取得
-		$sql = "SELECT * from admin WHERE user_id = ?";
-		$query = $this->db->query($sql, array($this_user_user_id));
+		$sql = "SELECT * from admin WHERE twitter_user_id = ?";
+		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$user_rows = $query->result();
 		//これに入ってるidをもとに外部サービスの情報をとってくる
 		//var_dump($user_rows);

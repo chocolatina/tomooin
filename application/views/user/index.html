@@ -42,7 +42,7 @@
 							<p><% $row->text %></p>
 						</div>
 					</div>
-					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <a href="/user/<% $row->user_screen_name %>"><% $row->user_screen_name %></a><% * $row->user_id * %></p>
+					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <a href="/user/<% $row->user_screen_name %>"><% $row->user_screen_name %></a><% * $row->twitter_user_id * %></p>
 				<% /if %>
 			<% /foreach %>
 		</section>
