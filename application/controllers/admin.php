@@ -5,10 +5,13 @@ require_once(APPPATH . "/config/oauth.php");
 // friends用　twitteroauthを利用
 require_once(APPPATH . "/libraries/twitteroauth/twitteroauth.php");
 
+// tomoo共通
+//require_once(APPPATH . "/libraries/common.php");
+
 class Admin extends CI_Controller {
 	
 	public $body_class = "admin";
-	
+
 	public function index()
 	{
 		session_start();
@@ -94,7 +97,7 @@ class Admin extends CI_Controller {
 			//$this->output->cache(10);
 			
 			//DBにキャッシュ用にテーブルをひとつ作って、友達の情報を入れて、もし情報が存在したら、次からはそれをとってくるにゃー
-			//user_id    | friend_id      | friend_screen_name   | friend_profile_image_url | date
+			//twitter_user_id    | friend_id      | friend_screen_name   | friend_profile_image_url | date
 			//------------------------------------------------------------------------------------------
 			//chocolatina | 123456        |murasakipinko         | https.....               | 20111111
 			//------------------------------------------------------------------------------------------
@@ -113,12 +116,12 @@ class Admin extends CI_Controller {
 		else{
 			
 			//このユーザーに届いた紹介文で未開封なら、開封済み非公開にする
-			$sql = "UPDATE table1 SET status='1' WHERE friend_id = ? AND status = ?";
+			$sql = "UPDATE contents SET status='1' WHERE friend_id = ? AND status = ?";
 			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 			
 			
 			//現在のユーザーに届いた紹介文を取ってくる
-			$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
+			$sql = "SELECT * from contents WHERE friend_id = ? ORDER BY date DESC";
 			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id']));
 			$rows = $query->result();
 			
@@ -155,7 +158,7 @@ class Admin extends CI_Controller {
 	{
 		session_start();
 
-		$sql = "UPDATE table1 SET status='2' WHERE id= ? AND friend_id = ?";
+		$sql = "UPDATE contents SET status='2' WHERE content_id= ? AND friend_id = ?";
 		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
 		
 		header("Location: /admin/received");
@@ -165,7 +168,7 @@ class Admin extends CI_Controller {
 	{
 		session_start();
 
-		$sql = "UPDATE table1 SET status='1' WHERE id= ? AND friend_id = ?";
+		$sql = "UPDATE contents SET status='1' WHERE content_id= ? AND friend_id = ?";
 		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
 		
 		header("Location: /admin/received");
@@ -197,7 +200,7 @@ class Admin extends CI_Controller {
 				//echo $row->id;
 				//var_dump($query);
 				//exit;
-				$this->smarty->assign("user_id",$row->twitter_user_id);
+				$this->smarty->assign("twitter_user_id",$row->twitter_user_id);
 				//友人の名前を取得
 				$friend_screen_name = $_GET['screen_name'];
 				$this->smarty->assign("friend_screen_name",$_GET['screen_name']);
@@ -237,7 +240,7 @@ class Admin extends CI_Controller {
 	{
 		
 		$params = $_POST["params"];
-		$sql = "INSERT INTO table1 (ip,date,twitter_user_id,friend_id,text,relation) VALUES (?,?,?,?,?,?)";
+		$sql = "INSERT INTO contents (ip,date,twitter_user_id,friend_id,text,relation) VALUES (?,?,?,?,?,?)";
 		$this->db->query($sql,array($params["ip"],$params["date"],$params["twitter_user_id"],$params["friend_id"],$params["text"],$params["relation"]));
 		
 		header("Location: /admin/wrote");
@@ -254,7 +257,7 @@ class Admin extends CI_Controller {
 			$this->body_id="admin_wrote";
 			$this->content_tpl="admin/wrote.html";
 		
-			$sql = "SELECT * from table1 WHERE twitter_user_id = ? ORDER BY date DESC";
+			$sql = "SELECT * from contents WHERE twitter_user_id = ? ORDER BY date DESC";
 			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id']));
 			$rows = $query->result();
 
@@ -358,7 +361,7 @@ class Admin extends CI_Controller {
 		
 		//$params["external_url_facebook"]
 		
-			//$sql = "UPDATE table1 SET status='1' WHERE friend_id = ? AND status = ?";
+			//$sql = "UPDATE contents SET status='1' WHERE friend_id = ? AND status = ?";
 			//$query = $this->db->query($sql, array($_SESSION['current_user']['user_id'],0));
 			
 		header("Location: /admin/setting");
@@ -388,7 +391,7 @@ class Admin extends CI_Controller {
 
 			
 		//サイドバーとadminトップ用。このユーザーに届いた紹介文で未開封のものの数字を取ってくる
-		$sql = "SELECT * from table1 WHERE friend_id = ? AND status = ?";
+		$sql = "SELECT * from contents WHERE friend_id = ? AND status = ?";
 		$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 		$unread_rows = $query->result();
 		//echo count($unread_rows);

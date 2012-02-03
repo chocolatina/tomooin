@@ -56,7 +56,7 @@ class User extends CI_Controller {
 		//exit;
 
 		//ユーザーのidを元に書かれた紹介文を取ってくる
-		$sql = "SELECT * from table1 WHERE friend_id = ? ORDER BY date DESC";
+		$sql = "SELECT * from contents WHERE friend_id = ? ORDER BY date DESC";
 		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$rows = $query->result();
 		//$this->smarty->assign("rows",$rows);
@@ -115,7 +115,7 @@ class User extends CI_Controller {
 		
 		
 		//サイドバー用この人が紹介文を書いた友達の一覧
-		$sql = "SELECT * from table1 WHERE twitter_user_id = ? ORDER BY date DESC";
+		$sql = "SELECT * from contents WHERE twitter_user_id = ? ORDER BY date DESC";
 		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$wrote_rows = $query->result();
 		
