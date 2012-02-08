@@ -3,7 +3,6 @@
 		<div class="main">
 			<section>
 				<h1 class="icon_pic_02">紹介文を書く</h1>
-				<p class="cm_mg_b_20">ああああ紹介文を書くよ</p>
 				
 				<form action="/admin/write/create" method="post" name="frm">
 					<input type="hidden" value="<% $twitter_user_id %>" name="params[twitter_user_id]" />
@@ -12,7 +11,7 @@
 					
 					
 					
-					<div class="clearfix area_border_bottom area_border_top">
+					<div class="clearfix area_border_bottom">
 						<div class="cm_float_l cm_w_20">
 							<h1>紹介する友達</h1>
 						</div>
@@ -48,7 +47,7 @@
 					<input type="hidden" value="<% $smarty.now|date_format:"%Y-%m-%d %H:%M:%S" %>" name="params[date]" />
 					<input type="hidden" value="<% $smarty.server.REMOTE_ADDR %>" name="params[ip]" />
 					
-					<p class="cm_txt_c cm_mg_b_10"><a class="button2" href="#" onclick="document.frm.submit()">送信</a></p>
+					<p class="cm_txt_c cm_mg_b_10"><a class="button2" href="#" onclick="document.frm.submit()">送 信</a></p>
 				</form>
 			</section>
 		</div>

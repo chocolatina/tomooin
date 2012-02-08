@@ -40,7 +40,20 @@ body {
 }
 #wrapper #top h1 {
 	float:left;
-	width:100px;
+	width:109px;
+	height:23px;
+	margin-top:3px;
+}
+#wrapper #top h1 a{
+	display:block;
+	text-decoration:none;
+	font-size:9px;
+	text-indent:-778em;
+	width:109px;
+	height:23px;
+    background: url(/img/common/logo.png) no-repeat;
+}
+#wrapper #top h1 a:hover{
 }
 #wrapper #top nav {
 	float:right;

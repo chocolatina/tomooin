@@ -1,34 +1,38 @@
 	<div class="contents clearfix">
 	<% include file='include/admin_nav.html' %>
 		<div class="main">
-			<section class="cm_mg_b_20">
+			<section class="cm_mg_b_40">
 				<h1 class="icon_pic_02">お知らせ</h1>
-				<% if $count_unread_rows!="0" %><p><strong><a href="/admin/received" class="cm_txt_cblue"><% $count_unread_rows %>件の新着紹介文が届いています！</a></strong></p><% /if %>
+				<% if $count_unread_rows!="0" %>
+				<p><strong><a href="/admin/received" class="cm_txt_cblue"><% $count_unread_rows %>件の新着紹介文が届いています！</a></strong></p>
+				<% else %>
+				<p>新しいお知らせは特にありません。</p>
+				<% /if %>
 				
 			</section>
-			<section class="cm_mg_b_20">
-				<h1 class="icon_pic_08">紹介文を書く</h1>
-				<p>紹介文を書く友達の</p>
-				<div>
-					<form class="cm_txt_c">
-						<input type="text" class="frm_text" />
-						<a href="■" class="button1s" />検索</a>
-					</form>
-				</div>
-			</section>
-			<section>
+			<section class="cm_mg_b_10">
 				<h1 class="icon_pic_08">最近タイムラインで話したお友達</h1>
-				<div class="clearfix area_border_bottom">
+				<div class="clearfix">
 					<% foreach from=$friends_list item=content key=key %>
 					<% * $content.friend_user_id * %>
-					<div class="cm_float_l cm_w_30 cm_mg_b_30 <% if $key%3==0 %>cm_mg_r_27<% /if %> clearfix">
+					<div class="cm_float_l cm_w_30 cm_mg_b_20<% if $key%3==0 %>cm_mg_r_27<% /if %> clearfix">
 						<p class="cm_float_l cm_w_25"><img src="<% $content.friend_profile_image_url %>" alt="" class="img_border cm_w_30px" /></p>
 						<section>
 							<h1 class="cm_lh_12"><% $content.friend_screen_name %></h1>
-							<p class="cm_txt_85"><a href="/admin/write/form/?screen_name=<% $content.friend_screen_name %>">この人の紹介文を書く</a><% * $content.friend_user_id * %></p>
+							<p class="cm_txt_85"><a href="/admin/write/form/?screen_name=<% $content.friend_screen_name %>" class="icon_point_13"><span></span>紹介文を書く</a><% * $content.friend_user_id * %></p>
 						</section>
 					</div>
 					<% /foreach %>
+				</div>
+			</section>
+			<section>
+				<h1 class="icon_pic_08">紹介文を書く</h1>
+				<p class="cm_mg_b_10">紹介文を書く友達のtwitterIDを検索してください。</p>
+				<div class="area_border">
+					<form class="cm_txt_c" name="frm">
+						<input type="text" class="frm_text" />
+						<a href="#" onclick="document.frm.submit()" class="button1s" />検索</a>
+					</form>
 				</div>
 			</section>
 		</div>

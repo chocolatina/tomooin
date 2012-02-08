@@ -156,7 +156,8 @@ class User extends CI_Controller {
 		$query = $this->db->query($sql, array($user_rows[0]->tomoo_id));
 		$user_setting_rows = $query->result();
 		//$user_setting_rows = $user_setting_rows[0];
-		
+		//var_dump($user_setting_rows);
+		//exit;
 		//ここはあとでもうちょっときれいな配列にする
 		$this->smarty->assign("user_setting_rows",$user_setting_rows[0]);
 		

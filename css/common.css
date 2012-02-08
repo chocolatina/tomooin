@@ -727,6 +727,44 @@ a.button2s:hover{
 	.icon_dot_green{background:url(/img/common/icon_dot_green.png) no-repeat 0 3px;padding-left:20px;}
 	.icon_dot_blue{background:url(/img/common/icon_dot_blue.png) no-repeat 0 3px;padding-left:20px;}
 	.icon_dot_gray{background:url(/img/common/icon_dot_gray.png) no-repeat 0 3px;padding-left:20px;}
+	
+	
+	
+.circle_white_30{
+	display:block;
+	position:absolute;
+	background:url(/img/common/circle_white_30.png) no-repeat;
+	width:30px;
+	height:30px;
+}
+
+
+.icon_point_01 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat 0 0;}
+.icon_point_02 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -16px 0;}
+.icon_point_03 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -32px 0;}
+.icon_point_04 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -48px 0;}
+.icon_point_05 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -64px 0;}
+.icon_point_06 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -80px 0;}
+.icon_point_07 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -96px 0;}
+.icon_point_08 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat 0 -16px;}
+.icon_point_09 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -16px -16px;}
+.icon_point_10 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -32px -16px;}
+.icon_point_11 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -48px -16px;}
+.icon_point_12 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -64px -16px;}
+.icon_point_13 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -80px -16px;}
+.icon_point_14 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -96px -16px;}
+.icon_point_15 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat 0 -32px;}
+.icon_point_16 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -16px -32px;}
+.icon_point_17 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -32px -32px;}
+.icon_point_18 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -48px -32px;}
+.icon_point_19 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -64px -32px;}
+.icon_point_20 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -80px -32px;}
+.icon_point_21 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -96px -32px;}
+.icon_point_22 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat 0 -48px;}
+.icon_point_23 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -16px -48px;}
+.icon_point_24 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -32px -48px;}
+.icon_point_25 span{width:15px;height:16px;display:block;float:left;margin-right:2px;margin-top:1px;background:url(/img/common/icon_point.png) no-repeat -48px -48px;}
+
 
 
 /* 位置 サイズ等 --------------------------------------------------------------- */
@@ -946,3 +984,6 @@ a.button2s:hover{
 	
     .cm_lt_sp_0 {letter-spacing:0 !important;}
     .cm_lt_sp_-1 {letter-spacing:-1px !important;}
+	
+    .cm_ps_r {position:relative !important;}
+    .cm_ps_a {position:absolute !important;}

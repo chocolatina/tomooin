@@ -7,54 +7,50 @@
 			<% if ($this_user_location!="") %><p class="area_border_bottom_s">在住：<% $this_user_location %></p><% /if %>
 			<% if ($this_user_description!="") %><p class="area_border_bottom_s"><% $this_user_description %></p><% /if %>
 			<section class="area_border_bottom_s">
-				<h1 class="cm_txt_100 cm_lh_12">利用しているサービス</h1>
+				<h1 class="cm_txt_100 cm_lh_12 cm_mg_b_10">利用しているサービス</h1>
 				
 				
 				<ul class="clearfix">
-					<li class="cm_w_30px cm_float_l"><a href="http://twitter.com/<% $this_user_screen_name %>" target="_blank" class="button_icon_social_twitter">twitter</a></li>
+					<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://twitter.com/<% $this_user_screen_name %>" target="_blank" class="button_icon_social_twitter">twitter</a></li>
 					<% foreach $user_setting_rows as $user_setting_row key=key %>
 						<% if $user_setting_row != "" %>
 							<% if $key == "external_url_facebook" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://www.facebook.com/profile.php?id=<% $user_setting_row %>" target="_blank" class="button_icon_social_facebook">facebook</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://www.facebook.com/profile.php?id=<% $user_setting_row %>" target="_blank" class="button_icon_social_facebook">facebook</a></li>
 							<% elseif $key == "external_url_mixi" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://mixi.jp/show_profile.pl?id=<% $user_setting_row %>" target="_blank" class="button_icon_social_mixi">mixi</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://mixi.jp/show_profile.pl?id=<% $user_setting_row %>" target="_blank" class="button_icon_social_mixi">mixi</a></li>
 							<% elseif $key == "external_url_tumblr" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://<% $user_setting_row %>.tumblr.com" target="_blank" class="button_icon_social_tumblr">Tumblr</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://<% $user_setting_row %>.tumblr.com" target="_blank" class="button_icon_social_tumblr">Tumblr</a></li>
 							<% elseif $key == "external_url_hatenab" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://b.hatena.ne.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_hatenab">はてなブックマーク</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://b.hatena.ne.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_hatenab">はてなブックマーク</a></li>
 							<% elseif $key == "external_url_hatenad" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://d.hatena.ne.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_hatenad">はてなダイアリー</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://d.hatena.ne.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_hatenad">はてなダイアリー</a></li>
 							<% elseif $key == "external_url_the" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://theinterviews.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_the">ザ・インタビューズ</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://theinterviews.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_the">ザ・インタビューズ</a></li>
 							<% elseif $key == "external_url_instagram" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://www.i4pc.jp/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_instagram">"Instagram</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://www.i4pc.jp/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_instagram">"Instagram</a></li>
 							<% elseif $key == "external_url_foursquare" %>
-								<li class="cm_w_30px cm_float_l"><a href="https://ja.foursquare.com/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_foursquare">foursquare</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="https://ja.foursquare.com/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_foursquare">foursquare</a></li>
 							<% elseif $key == "external_url_ameblo" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://ameblo.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_ameblo">アメーバブログ</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://ameblo.jp/<% $user_setting_row %>" target="_blank" class="button_icon_social_ameblo">アメーバブログ</a></li>
 							<% elseif $key == "external_url_jugem" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://<% $user_setting_row %>.jugem.jp/" target="_blank" class="button_icon_social_jugem">JUGEM</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://<% $user_setting_row %>.jugem.jp/" target="_blank" class="button_icon_social_jugem">JUGEM</a></li>
 							<% elseif $key == "external_url_flickr" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://www.flickr.com/photos/<% $user_setting_row %>" target="_blank" class="button_icon_social_flickr">Flickr</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://www.flickr.com/photos/<% $user_setting_row %>" target="_blank" class="button_icon_social_flickr">Flickr</a></li>
 							<% elseif $key == "external_url_youtube" %>
-								<li class="cm_w_30px cm_float_l"><a href="http://youtube.com/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_youtube">Youtube</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="http://youtube.com/user/<% $user_setting_row %>" target="_blank" class="button_icon_social_youtube">Youtube</a></li>
 							<% elseif $key == "external_url_nicovideo" %>
-								<li class="cm_w_30px cm_float_l"><a href="<% $user_setting_row %>" target="_blank" class="button_icon_social_nicovideo">ニコニコ動画</a></li>
+								<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5"><a href="<% $user_setting_row %>" target="_blank" class="button_icon_social_nicovideo">ニコニコ動画</a></li>
 							<% /if %>
 						<% /if %>
 					<% /foreach %>
 				</ul>
-				
-				<ul class="clearfix">
-					<li class="cm_w_30px cm_float_l"><a href="■" target="_blank">ああ</a></li>
-				</ul>
 			</section>
 			<section class="area_border_bottom_s">
-				<h1 class="cm_txt_100 cm_lh_12"><% $this_user_screen_name %>さんが<br>紹介文を贈った友達</h1>
+				<h1 class="cm_txt_100 cm_lh_12 cm_mg_b_10"><% $this_user_screen_name %>さんが<br>紹介文を贈った友達</h1>
 				<ul class="clearfix">
 					<% foreach $wrote_rows as $wrote_row %>
 						<% if $wrote_row->status=="2" %>
-							<li class="cm_w_30px cm_float_l"><a href="/user/<% $wrote_row->friend_screen_name %>"><img src="<% $wrote_row->friend_profile_image_url %>" alt="<% $wrote_row->friend_screen_name %>" class="cm_w_20px" /></a></li>
+							<li class="cm_w_30px cm_float_l cm_mg_r_5 cm_mg_b_5 cm_ps_r"><a href="/user/<% $wrote_row->friend_screen_name %>"><span class="circle_white_30"></span><img src="<% $wrote_row->friend_profile_image_url %>" alt="<% $wrote_row->friend_screen_name %>" class="cm_w_30px" /></a></li>
 						<% /if %>
 					<% /foreach %>
 				</ul>
