@@ -146,8 +146,23 @@ class User extends CI_Controller {
 		$sql = "SELECT * from admin WHERE twitter_user_id = ?";
 		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$user_rows = $query->result();
+		//echo $user_rows[0]->tomoo_id;
+		//exit;
 		//これに入ってるidをもとに外部サービスの情報をとってくる
 		//var_dump($user_rows);
+		//exit;
+		
+		$sql = "SELECT * from user_setting WHERE tomoo_id = ?";
+		$query = $this->db->query($sql, array($user_rows[0]->tomoo_id));
+		$user_setting_rows = $query->result();
+		//$user_setting_rows = $user_setting_rows[0];
+		
+		//ここはあとでもうちょっときれいな配列にする
+		$this->smarty->assign("user_setting_rows",$user_setting_rows[0]);
+		
+		//var_dump($user_setting_rows);
+		//exit;
+		
 
 		
 		$this->body_id="user_index";
