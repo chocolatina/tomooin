@@ -55,7 +55,7 @@ class User extends CI_Controller {
 		//echo $xml_users_lookup->user->id;
 		//exit;
 
-		//ユーザーのidを元に書かれた紹介文を取ってくる
+		//ユーザーのidを元に書かれた思い出話を取ってくる
 		$sql = "SELECT * from contents WHERE friend_id = ? ORDER BY date DESC";
 		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$rows = $query->result();
@@ -114,7 +114,7 @@ class User extends CI_Controller {
 		//サイドバー用twitterAPI通信ここまで
 		
 		
-		//サイドバー用この人が紹介文を書いた友達の一覧
+		//サイドバー用この人が思い出話を書いた友達の一覧
 		$sql = "SELECT * from contents WHERE twitter_user_id = ? ORDER BY date DESC";
 		$query = $this->db->query($sql, array($this_user_twitter_user_id));
 		$wrote_rows = $query->result();

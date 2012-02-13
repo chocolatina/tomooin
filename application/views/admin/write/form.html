@@ -2,7 +2,7 @@
 	<% include file='include/admin_nav.html' %>
 		<div class="main">
 			<section>
-				<h1 class="icon_pic_02">紹介文を書く</h1>
+				<h1 class="icon_pic_02">思い出話を書く</h1>
 				
 				<form action="/admin/write/create" method="post" name="frm">
 					<input type="hidden" value="<% $twitter_user_id %>" name="params[twitter_user_id]" />
@@ -12,10 +12,10 @@
 					
 					
 					<div class="clearfix area_border_bottom">
-						<div class="cm_float_l cm_w_20">
-							<h1>紹介する友達</h1>
+						<div class="cm_float_l cm_w_25">
+							<h1>思い出話を贈る友達</h1>
 						</div>
-						<div class="cm_float_r cm_w_78">
+						<div class="cm_float_r cm_w_72">
 							
 								<section class="clearfix cm_mg_b_10">
 									<h1 class="cm_float_l cm_mg_r_10 cm_w_16"><img src="<% $friend_profile_image_url_https %>" alt="" class="cm_w_60px cm_mg_r_5 img_border" /></h1>
@@ -29,18 +29,26 @@
 						</div>
 					</div>
 					<div class="clearfix area_border_bottom">
-						<div class="cm_float_l cm_w_20">
+						<div class="cm_float_l cm_w_25">
 							<h1>関係</h1>
 						</div>
-						<div class="cm_float_r cm_w_78">
+						<div class="cm_float_r cm_w_72">
 							<p><input type="text" class="frm_text" name="params[relation]"></p>
 						</div>
 					</div>
 					<div class="clearfix area_border_bottom">
-						<div class="cm_float_l cm_w_20">
-							<h1>紹介文</h1>
+						<div class="cm_float_l cm_w_25">
+							<h1>いつの思い出？</h1>
 						</div>
-						<div class="cm_float_r cm_w_78">
+						<div class="cm_float_r cm_w_72">
+							<p><input type="text" class="frm_text" name="params[whenis]"></p>
+						</div>
+					</div>
+					<div class="clearfix area_border_bottom">
+						<div class="cm_float_l cm_w_25">
+							<h1>この人との思い出</h1>
+						</div>
+						<div class="cm_float_r cm_w_72">
 							<p><textarea class="cm_w_95 cm_h_100px frm_text" name="params[text]"></textarea></p>
 						</div>
 					</div>

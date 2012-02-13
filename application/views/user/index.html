@@ -2,7 +2,7 @@
 		<nav class="side">
 			<p class="cm_mg_b_10 area_border_bottom"><img src="<% $this_user_profile_image_url %>" alt="<% $this_user_screen_name %>" class="img_border_l cm_mg_r_5" /></p>
 			<h1 class="cm_txt_150 area_border_bottom_s"><% $this_user_screen_name %></h1>
-			<p class="area_border_bottom_s"><a class="button1s" href="/admin/write/form/?screen_name=<% $this_user_screen_name %>">この人の紹介文を書く</a></p>
+			<p class="area_border_bottom_s"><a class="button1s" href="/admin/write/form/?screen_name=<% $this_user_screen_name %>">この人の思い出を書く</a></p>
 			<p class="area_border_bottom_s">名前：<% $this_user_name %></p>
 			<% if ($this_user_location!="") %><p class="area_border_bottom_s">在住：<% $this_user_location %></p><% /if %>
 			<% if ($this_user_description!="") %><p class="area_border_bottom_s"><% $this_user_description %></p><% /if %>
@@ -46,7 +46,7 @@
 				</ul>
 			</section>
 			<section class="area_border_bottom_s">
-				<h1 class="cm_txt_100 cm_lh_12 cm_mg_b_10"><% $this_user_screen_name %>さんが<br>紹介文を贈った友達</h1>
+				<h1 class="cm_txt_100 cm_lh_12 cm_mg_b_10"><% $this_user_screen_name %>さんが<br>思い出話を贈った友達</h1>
 				<ul class="clearfix">
 					<% foreach $wrote_rows as $wrote_row %>
 						<% if $wrote_row->status=="2" %>
@@ -63,19 +63,17 @@
 			</section>
 		</nav>
 		<section class="main">
-			<h1 class="icon_pic_55">友達からの <% $this_user_screen_name %> さんの紹介</h1>
+			<h1 class="icon_pic_55"><% $this_user_screen_name %> との思い出話</h1>
 
 			<% foreach $rows as $row %>
 				<% if $row->status=="2" %>
-					<div class="clearfix area_border_bottom_s">
-						<div class="cm_float_l cm_w_20">
-							<h1><% $row->relation %></h1>
-						</div>
+					<section class="clearfix area_border_bottom_s">
+						<h1 class="cm_float_l cm_w_20 icon_point_03"><span></span><% $row->whenis %></h1>
 						<div class="cm_float_r cm_w_78">
 							<p><% $row->text %></p>
 						</div>
-					</div>
-					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <a href="/user/<% $row->user_screen_name %>"><% $row->user_screen_name %></a><% * $row->twitter_user_id * %></p>
+					</section>
+					<p class="area_border_bottom_s cm_txt_r">introduced at <% $row->date %> by <a href="/user/<% $row->user_screen_name %>"><% $row->user_screen_name %></a><% * $row->twitter_user_id * %>&nbsp;(<% $row->relation %>)</p>
 				<% /if %>
 			<% /foreach %>
 		</section>

@@ -4,7 +4,7 @@
 			<section class="cm_mg_b_40">
 				<h1 class="icon_pic_02">お知らせ</h1>
 				<% if $count_unread_rows!="0" %>
-				<p><strong><a href="/admin/received" class="cm_txt_cblue"><% $count_unread_rows %>件の新着紹介文が届いています！</a></strong></p>
+				<p><strong><a href="/admin/received" class="cm_txt_cblue"><% $count_unread_rows %>件の新着思い出話が届いています！</a></strong></p>
 				<% else %>
 				<p>新しいお知らせは特にありません。</p>
 				<% /if %>
@@ -19,15 +19,15 @@
 						<p class="cm_float_l cm_w_25"><img src="<% $content.friend_profile_image_url %>" alt="" class="img_border cm_w_30px" /></p>
 						<section>
 							<h1 class="cm_lh_12"><% $content.friend_screen_name %></h1>
-							<p class="cm_txt_85"><a href="/admin/write/form/?screen_name=<% $content.friend_screen_name %>" class="icon_point_13"><span></span>紹介文を書く</a><% * $content.friend_user_id * %></p>
+							<p class="cm_txt_85"><a href="/admin/write/form/?screen_name=<% $content.friend_screen_name %>" class="icon_point_13"><span></span>思い出話を書く</a><% * $content.friend_user_id * %></p>
 						</section>
 					</div>
 					<% /foreach %>
 				</div>
 			</section>
 			<section>
-				<h1 class="icon_pic_08">紹介文を書く</h1>
-				<p class="cm_mg_b_10">紹介文を書く友達のtwitterIDを検索してください。</p>
+				<h1 class="icon_pic_08">思い出話を書く</h1>
+				<p class="cm_mg_b_10">思い出話を書く友達のtwitterIDを検索してください。</p>
 				<div class="area_border">
 					<form class="cm_txt_c" name="frm">
 						<input type="text" class="frm_text" />

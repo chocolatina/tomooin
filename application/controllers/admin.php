@@ -115,18 +115,23 @@ class Admin extends CI_Controller {
 		}
 		else{
 			
-			//このユーザーに届いた紹介文で未開封なら、開封済み非公開にする
+			
+			
+			//公開時（received_publish）や削除時（received_delete）などから渡ってきたメッセージ用のflashセッション
+			$this->smarty->assign("message",$this->session->flashdata('message'));
+			
+			//このユーザーに届いた思い出話で未開封なら、開封済み非公開にする
 			$sql = "UPDATE contents SET status='1' WHERE friend_id = ? AND status = ?";
 			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 			
 			
-			//現在のユーザーに届いた紹介文を取ってくる
+			//現在のユーザーに届いた思い出話を取ってくる
 			$sql = "SELECT * from contents WHERE friend_id = ? ORDER BY date DESC";
 			$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id']));
 			$rows = $query->result();
 			
 			
-			//$rowsに紹介文の筆者のscreen_nameを足してあげる
+			//$rowsに思い出話の筆者のscreen_nameを足してあげる
 			
 			$i=0;
 			foreach ($rows as $key => $value){
@@ -161,6 +166,10 @@ class Admin extends CI_Controller {
 		$sql = "UPDATE contents SET status='2' WHERE content_id= ? AND friend_id = ?";
 		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
 		
+		
+		//メッセージを短期的なセッションに入れて渡す。行先はadmin/received
+		$this->session->set_flashdata('message', '公開しました');
+		
 		header("Location: /admin/received");
 	}
 
@@ -170,6 +179,10 @@ class Admin extends CI_Controller {
 
 		$sql = "UPDATE contents SET status='1' WHERE content_id= ? AND friend_id = ?";
 		$this->db->query($sql,array($_GET['id'],$_SESSION['current_user']['twitter_user_id']));
+		
+		
+		//メッセージを短期的なセッションに入れて渡す。行先はadmin/received
+		$this->session->set_flashdata('message', '非公開にしました');
 		
 		header("Location: /admin/received");
 	}
@@ -240,8 +253,11 @@ class Admin extends CI_Controller {
 	{
 		
 		$params = $_POST["params"];
-		$sql = "INSERT INTO contents (ip,date,twitter_user_id,friend_id,text,relation) VALUES (?,?,?,?,?,?)";
-		$this->db->query($sql,array($params["ip"],$params["date"],$params["twitter_user_id"],$params["friend_id"],$params["text"],$params["relation"]));
+		$sql = "INSERT INTO contents (ip,date,twitter_user_id,friend_id,text,relation,whenis) VALUES (?,?,?,?,?,?,?)";
+		$this->db->query($sql,array($params["ip"],$params["date"],$params["twitter_user_id"],$params["friend_id"],$params["text"],$params["relation"],$params["whenis"]));
+		
+		//メッセージを短期的なセッションに入れて渡す。行先はadmin/wrote
+		$this->session->set_flashdata('message', '作成しました');
 		
 		header("Location: /admin/wrote");
 	}
@@ -253,6 +269,9 @@ class Admin extends CI_Controller {
 			header("Location: /login/twitter");
 		}
 		else{
+			
+			//作成時（write_create）や削除時（wrote_delete）などから渡ってきたメッセージ用のflashセッション
+			$this->smarty->assign("message",$this->session->flashdata('message'));
 			
 			$this->body_id="admin_wrote";
 			$this->content_tpl="admin/wrote.html";
@@ -303,6 +322,24 @@ class Admin extends CI_Controller {
 
 			$this->_render();
 		}
+	}
+	public function wrote_delete()
+	{
+		
+		session_start();
+		//チェックしたチェックボックスのcontent_idがGETに配列で入っている
+		$delete_check = $_GET["delete_check"];
+		//それぞれ回してsql文なげる
+		for( $i=0; $i < count($delete_check); $i++ ) {
+			//削除処理
+			$sql = "UPDATE contents SET status='4' WHERE content_id= ?";
+			$this->db->query($sql,array($delete_check[$i]));
+		}
+		
+		//メッセージを短期的なセッションに入れて渡す。行先はadmin/wrote
+		$this->session->set_flashdata('message', '削除しました');
+		
+		header("Location: /admin/wrote");
 	}
 	public function setting()
 	{
@@ -390,7 +427,7 @@ class Admin extends CI_Controller {
 
 
 			
-		//サイドバーとadminトップ用。このユーザーに届いた紹介文で未開封のものの数字を取ってくる
+		//サイドバーとadminトップ用。このユーザーに届いた思い出話で未開封のものの数字を取ってくる
 		$sql = "SELECT * from contents WHERE friend_id = ? AND status = ?";
 		$query = $this->db->query($sql, array($_SESSION['current_user']['twitter_user_id'],0));
 		$unread_rows = $query->result();

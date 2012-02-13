@@ -2,13 +2,13 @@
 	<% include file='include/admin_nav.html' %>
 		<div class="main">
 			<section>
-				<h1 class="icon_pic_02">届いた紹介文</h1>
-				<p class="cm_mg_b_20">届いた紹介文の一覧。公開するかどうか。公開か非公開か。</p>
+				<h1 class="icon_pic_02">届いた思い出話</h1>
+				<p class="cm_mg_b_20">届いた思い出話の一覧。公開するかどうか。公開か非公開か。</p>
 			
 				<table class="table_01 cm_w_100 cm_mg_b_10">
 					<tr class="odd">
 							<th class="cm_w_5">&nbsp;</th>
-							<th colspan="2">友達</th>
+							<th colspan="3">友達</th>
 							<th>関係</th>
 							<th>日付</th>
 							<th>確認</th>
@@ -20,22 +20,23 @@
 							<td style="border-right:none"><img src="<% $row->user_profile_image_url_https %>" class="img_border cm_w_40px cm_mg_r_10" alt="<% $row->user_screen_name %>" /></td>
 							<td class="cm_txt_fwb"><% $row->user_screen_name %></td>
 							<td><% $row->relation %></td>
+							<td><% $row->whenis %></td>
 							<td><% $row->date %></td>
 							<td>[<a href="/user/<% $row->user_screen_name %>">→</a>]</td>
 							<td>
-								<% if $row->status !=2 %>
-									<a class="button1s" href="/admin/received/publish?id=<% $row->id %>">公開する</a>
+								<% if $row->status ==2 %>
+									<a class="button1s" href="/admin/received/hide?id=<% $row->content_id %>">非公開にする</a>
 								<% else %>
-									<a class="button1s" href="/admin/received/hide?id=<% $row->id %>">非公開にする</a>
+									<a class="button1s" href="/admin/received/publish?id=<% $row->content_id %>">公開する</a>
 								<% /if %>
 							</td>
 					</tr>
 					<tr class="even">
-						<td colspan="6"><% $row->text %></td>
+						<td colspan="7"><% $row->text %></td>
 					</tr>
 					<% /foreach %>
 				</table>
-				<p class="area_border_bottom_s"><a class="button1s" href="">チェックした紹介文を削除</a></p>
+				<p class="area_border_bottom_s"><a class="button1s" href="">チェックした思い出話を削除</a></p>
 			</section>
 		</div>
 	</div>

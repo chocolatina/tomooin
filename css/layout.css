@@ -120,7 +120,7 @@ body {
 }
 .admin #wrapper .contents .side ul li a{
 	text-decoration:none;
-	padding:5px;
+	padding:5px 10px;
 	display:block;
 	background:#f5f4ec;
 }
@@ -131,7 +131,7 @@ body {
 	background:#fff;
 }
 
-.admin #wrapper .contents .side ul li a span{
+.admin #wrapper .contents .side ul li a strong.num{
 	background:#37a4b4;
 	float:right;
 	padding:0 1em;
